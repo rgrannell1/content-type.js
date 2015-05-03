@@ -67,104 +67,102 @@ var lastOf = function (coll) {
 
 
 
+
+
+
+
+
+	let type = zipKeys(
+		[['/', '_SLASH']]
+		.concat(
+			tokenChar.map(char => [char, 'type']) )
+	)
+
+	let subtype = zipKeys(
+		[[';','_SPACE']]
+		.concat(
+			tokenChar.map(char => [char, 'subtype']) )
+	)
+
+	let attribute = zipKeys(
+		[['=', '_EQUAL']]
+		.concat(
+			tokenChar
+			.filter(char => {
+				return control.indexOf(char) === -1
+			})
+			.map(char => [char, 'attribute']) )
+	)
+
+	let singleQuoted = zipKeys(
+		[["'", '_SPACE']]
+		.concat(
+			tokenChar
+			.concat(tspecials)
+			.concat(' ')
+			.filter(char => char != "'")
+			.map(char => [char, 'single-quoted']) )
+	)
+
+	let doubleQuoted = zipKeys(
+		[['"', '_SPACE']]
+		.concat(
+			tokenChar
+			.concat(tspecials)
+			.concat(' ')
+			.filter(char => char != '"')
+			.map(char => [char, 'double-quoted']) )
+	)
+
+	let unquoted = zipKeys(
+		[[';', '_SPACE']]
+		.concat( tokenChar.map(char => [char, 'unquoted']) )
+	)
+
+
+
+
+	let _SLASH = zipKeys(
+		tokenChar.map(
+			char => [char, 'subtype'])
+	)
+
+	let _EQUAL = zipKeys(
+		[
+			['"',  'double-quoted'],
+			["'",  'single-quoted']]
+		.concat( tokenChar.map(char => [char, 'unquoted']) )
+	)
+
+	let _SPACE = zipKeys(
+		[
+			[';',  '_SPACE'],
+			[' ',  '_SPACE'],
+			['\t', '_SPACE'],
+			['\n', '_SPACE']
+		]
+		.concat(
+			tokenChar
+			.filter(char => char !== ';' && char !== ' ' && char !== '\t' && char !== '\n')
+			.map(char => [char, 'attribute']) )
+	)
+
+
+
+
+
 	var grammar = {
 
-		'type':
-			zipKeys(
-				[['/', '_SLASH']]
-				.concat(
-					tokenChar.map(char => [char, 'type']) )
-			),
+		type,
+		subtype,
+		attribute,
+		'single-quoted': singleQuoted,
+		'double-quoted': doubleQuoted,
+		unquoted,
 
-		'subtype':
-			zipKeys(
-				[[';','_SPACE']]
-				.concat(
-					tokenChar.map(char => [char, 'subtype']) )
-			),
-
-		'attribute':
-			zipKeys(
-				[['=', '_EQUAL']]
-				.concat(
-					tokenChar
-					.filter(char => {
-						return control.indexOf(char) === -1
-					})
-					.map(char => [char, 'attribute']) )
-			),
-
-
-
-
-		'single-quoted':
-			zipKeys(
-				[["'", '_SPACE']]
-				.concat(
-					tokenChar
-					.concat(tspecials)
-					.concat(' ')
-					.filter(char => char != "'")
-					.map(char => [char, 'single-quoted']) )
-			),
-
-		'double-quoted':
-			zipKeys(
-				[['"', '_SPACE']]
-				.concat(
-					tokenChar
-					.concat(tspecials)
-					.concat(' ')
-					.filter(char => char != '"')
-					.map(char => [char, 'double-quoted']) )
-			),
-
-
-
-
-
-		'unquoted':
-			zipKeys(
-				[[';', '_SPACE']]
-				.concat( tokenChar.map(char => [char, 'unquoted']) )
-			),
-
-
-
-
-
-		'_SLASH':
-			zipKeys(
-				tokenChar.map(
-					char => [char, 'subtype'])
-			),
-
-		'_EQUAL':
-			zipKeys(
-				[
-					['"',  'double-quoted'],
-					["'",  'single-quoted']]
-				.concat( tokenChar.map(char => [char, 'unquoted']) )
-			),
-
-
-
-
-
-
-		'_SPACE':
-			zipKeys(
-				[
-					[';',  '_SPACE'],
-					[' ',  '_SPACE'],
-					['\t', '_SPACE'],
-					['\n', '_SPACE']
-				]
-				.concat(
-					tokenChar
-					.filter(char => char !== ';' && char !== ' ' && char !== '\t' && char !== '\n')
-					.map(char => [char, 'attribute']) )
-			)
+		_SLASH,
+		_EQUAL,
+		_SPACE
 
 	}
 
@@ -260,6 +258,7 @@ var parseLexeme = lexeme => {
 		var options = labels.slice(2)
 
 		if (options.length % 2 !== 0) {
+			console.log(labels)
 			throw Error('parsing failed: odd number of tokens.')
 		}
 
