@@ -384,10 +384,21 @@ var knowResults = [
 			type:    'text',
 			subtype: 'plain',
 			params:  {
-				foo: '; charset=\"UTF-8\""'
+				foo: '"; charset=\"UTF-8\""'
 			}
 		},
-		'text/plain; foo="; charset=\"UTF-8\""')
+		'text/plain; foo="; charset=\"UTF-8\""'),
+
+	known(
+		"text/plain; foo='; charset=\"UTF-8\"'",
+		{
+			type:    'text',
+			subtype: 'plain',
+			params:  {
+				foo: '"; charset=\"UTF-8\""'
+			}
+		},
+		'text/plain; foo="; charset=\"UTF-8\""'),
 
 ]
 

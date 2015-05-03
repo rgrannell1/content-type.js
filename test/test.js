@@ -203,7 +203,19 @@ var knowResults = [known("text/html; charset=utf-8", {
 		foo: "bar",
 		charset: "\"UTF-8\""
 	}
-}, "text/plain; foo=bar; charset=\"UTF-8\"")];
+}, "text/plain; foo=bar; charset=\"UTF-8\""), known("text/plain; foo=\"; charset=\"UTF-8\"\"", {
+	type: "text",
+	subtype: "plain",
+	params: {
+		foo: "\"; charset=\"UTF-8\"\""
+	}
+}, "text/plain; foo=\"; charset=\"UTF-8\"\""), known("text/plain; foo='; charset=\"UTF-8\"'", {
+	type: "text",
+	subtype: "plain",
+	params: {
+		foo: "\"; charset=\"UTF-8\"\""
+	}
+}, "text/plain; foo=\"; charset=\"UTF-8\"\"")];
 
 var knownFailures = ["text; html;", "texthtml", "text/plain; charset = UTF-8"];
 
