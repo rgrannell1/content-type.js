@@ -11,20 +11,8 @@ a (mostly) rfc-2045 compliant parser.
 // node-js.
 var mimetype = require('mimetype')
 
-
-
-
-
-
 var contentType = mimetype.parse('text/html; charset=utf-8')
-
 console.log(contentType)
-
-
-
-
-
-
 
 { type: 'text',
   subtype: 'html',
@@ -33,6 +21,7 @@ console.log(contentType)
 ```
 
 ## Why?
+
 
 ## Exceptions
 
@@ -50,7 +39,8 @@ console.log(contentType)
 
 * Throws a `TypeError` if the input does not have type, subtype, and params fields, each of type string.
 
+
 ## Corner-Cases
 
 `mimetype` does not strictly follow the above RFC, as many of the top-100 
-websites do not either.
+websites do not either. 

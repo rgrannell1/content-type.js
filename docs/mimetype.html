@@ -33,26 +33,18 @@
             <div class="content"><div class='highlight'><pre>#!<span class="hljs-regexp">/usr/</span>bin/env node
 <span class="hljs-pi">"use strict"</span>;
 
-<span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Array</span>.prototype, <span class="hljs-string">"zipKeys"</span>, {
+<span class="hljs-keyword">var</span> zipKeys = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">zipKeys</span><span class="hljs-params">(colls)</span> </span>{
 
-	enumerable: <span class="hljs-literal">false</span>,
-	value: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">value</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-keyword">var</span> out = {};
+	colls.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(pair)</span> </span>{
+		<span class="hljs-keyword">return</span> out[pair[<span class="hljs-number">0</span>]] = pair[<span class="hljs-number">1</span>];
+	});
+	<span class="hljs-keyword">return</span> out;
+};
 
-		<span class="hljs-keyword">var</span> out = {};
-		<span class="hljs-keyword">this</span>.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(pair)</span> </span>{
-			<span class="hljs-keyword">return</span> out[pair[<span class="hljs-number">0</span>]] = pair[<span class="hljs-number">1</span>];
-		});
-		<span class="hljs-keyword">return</span> out;
-	}
-});
-
-<span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">Array</span>.prototype, <span class="hljs-string">"lastOf"</span>, {
-
-	enumerable: <span class="hljs-literal">false</span>,
-	value: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">value</span><span class="hljs-params">()</span> </span>{
-		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.length - <span class="hljs-number">1</span>];
-	}
-});
+<span class="hljs-keyword">var</span> lastOf = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lastOf</span><span class="hljs-params">(coll)</span> </span>{
+	<span class="hljs-keyword">return</span> coll[coll.length - <span class="hljs-number">1</span>];
+};
 
 {
 	<span class="hljs-keyword">var</span> grammar;
@@ -68,45 +60,45 @@
 
 		grammar = {
 
-			type: [[<span class="hljs-string">"/"</span>, <span class="hljs-string">"_SLASH"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			type: zipKeys([[<span class="hljs-string">"/"</span>, <span class="hljs-string">"_SLASH"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"type"</span>];
-			})).zipKeys(),
+			}))),
 
-			subtype: [[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			subtype: zipKeys([[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"subtype"</span>];
-			})).zipKeys(),
+			}))),
 
-			attribute: [[<span class="hljs-string">"="</span>, <span class="hljs-string">"_EQUAL"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			attribute: zipKeys([[<span class="hljs-string">"="</span>, <span class="hljs-string">"_EQUAL"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"attribute"</span>];
-			})).zipKeys(),
+			}))),
 
-			<span class="hljs-string">"single-quoted"</span>: [[<span class="hljs-string">"'"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			<span class="hljs-string">"single-quoted"</span>: zipKeys([[<span class="hljs-string">"'"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> char != <span class="hljs-string">"'"</span>;
 			}).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"single-quoted"</span>];
-			})).zipKeys(),
+			}))),
 
-			<span class="hljs-string">"double-quoted"</span>: [[<span class="hljs-string">"\""</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			<span class="hljs-string">"double-quoted"</span>: zipKeys([[<span class="hljs-string">"\""</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> char != <span class="hljs-string">"\""</span>;
 			}).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"double-quoted"</span>];
-			})).zipKeys(),
+			}))),
 
-			unquoted: [[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			unquoted: zipKeys([[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"unquoted"</span>];
-			})).zipKeys(),
+			}))),
 
-			_SLASH: tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			_SLASH: zipKeys(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"subtype"</span>];
-			}).zipKeys(),
+			})),
 
-			_EQUAL: [[<span class="hljs-string">"\""</span>, <span class="hljs-string">"double-quoted"</span>], [<span class="hljs-string">"'"</span>, <span class="hljs-string">"single-quoted"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			_EQUAL: zipKeys([[<span class="hljs-string">"\""</span>, <span class="hljs-string">"double-quoted"</span>], [<span class="hljs-string">"'"</span>, <span class="hljs-string">"single-quoted"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"unquoted"</span>];
-			})).zipKeys(),
+			}))),
 
-			_SPACE: [[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">" "</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\t"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\n"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			_SPACE: zipKeys([[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">" "</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\t"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\n"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"attribute"</span>];
-			})).zipKeys()
+			})))
 
 		};
 	})();
@@ -144,8 +136,8 @@
 
 	lexeme.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(state, ith)</span> </span>{
 
-		<span class="hljs-keyword">if</span> (tokens.length &gt; <span class="hljs-number">0</span> &amp;&amp; tokens.lastOf().lastOf()[<span class="hljs-number">1</span>] === state[<span class="hljs-number">1</span>]) {
-			tokens.lastOf().push(state);
+		<span class="hljs-keyword">if</span> (tokens.length &gt; <span class="hljs-number">0</span> &amp;&amp; lastOf(lastOf(tokens))[<span class="hljs-number">1</span>] === state[<span class="hljs-number">1</span>]) {
+			lastOf(tokens).push(state);
 		} <span class="hljs-keyword">else</span> {
 			tokens.push([state]);
 		}

@@ -7,28 +7,17 @@
 
 
 
-Object.defineProperty(Array.prototype, 'zipKeys', {
+var zipKeys = function (colls) {
 
-	enumerable: false,
-	value:      function ( ) {
+	var out = { }
+	colls.forEach(pair => out[pair[0]] = pair[1])
+	return out
 
-		var out = { }
-		this.forEach(pair => out[pair[0]] = pair[1])
-		return out
+}
 
-	}
-})
-
-Object.defineProperty(Array.prototype, 'lastOf', {
-
-	enumerable: false,
-	value:      function ( ) {
-		return this[this.length - 1]
-	}
-})
-
-
-
+var lastOf = function (coll) {
+	return coll[coll.length - 1]
+}
 
 
 
@@ -57,65 +46,73 @@ Object.defineProperty(Array.prototype, 'lastOf', {
 	var grammar = {
 
 		'type':
-			[['/', '_SLASH']]
-			.concat(
-				tokenChar.map(char => [char, 'type']) )
-			.zipKeys( ),
+			zipKeys(
+				[['/', '_SLASH']]
+				.concat(
+					tokenChar.map(char => [char, 'type']) )
+			),
 
 		'subtype':
-			[[';','_SPACE']]
-			.concat(
-				tokenChar.map(char => [char, 'subtype']) )
-			.zipKeys( ),
+			zipKeys(
+				[[';','_SPACE']]
+				.concat(
+					tokenChar.map(char => [char, 'subtype']) )
+			),
 
 		'attribute':
-			[['=', '_EQUAL']]
-			.concat( tokenChar.map(char => [char, 'attribute']) )
-			.zipKeys( ),
+			zipKeys(
+				[['=', '_EQUAL']]
+				.concat( tokenChar.map(char => [char, 'attribute']) )
+			),
 
 
 
 
 		'single-quoted':
-			[["'", '_SPACE']]
-			.concat(
-				tokenChar
-				.filter(char => char != "'")
-				.map(char => [char, 'single-quoted']) )
-			.zipKeys( ),
+			zipKeys(
+				[["'", '_SPACE']]
+				.concat(
+					tokenChar
+					.filter(char => char != "'")
+					.map(char => [char, 'single-quoted']) )
+			),
 
 		'double-quoted':
-			[['"', '_SPACE']]
-			.concat(
-				tokenChar
-				.filter(char => char != '"')
-				.map(char => [char, 'double-quoted']) )
-			.zipKeys( ),
+			zipKeys(
+				[['"', '_SPACE']]
+				.concat(
+					tokenChar
+					.filter(char => char != '"')
+					.map(char => [char, 'double-quoted']) )
+			),
 
 
 
 
 
 		'unquoted':
-			[[';', '_SPACE']]
-			.concat( tokenChar.map(char => [char, 'unquoted']) )
-			.zipKeys( ),
+			zipKeys(
+				[[';', '_SPACE']]
+				.concat( tokenChar.map(char => [char, 'unquoted']) )
+			),
 
 
 
 
 
 		'_SLASH':
-			tokenChar.map(
-				char => [char, 'subtype'])
-			.zipKeys( ),
+			zipKeys(
+				tokenChar.map(
+					char => [char, 'subtype'])
+			),
 
 		'_EQUAL':
-			[
-				['"',  'double-quoted'],
-				["'",  'single-quoted']]
-			.concat( tokenChar.map(char => [char, 'unquoted']) )
-			.zipKeys( ),
+			zipKeys(
+				[
+					['"',  'double-quoted'],
+					["'",  'single-quoted']]
+				.concat( tokenChar.map(char => [char, 'unquoted']) )
+			),
 
 
 
@@ -123,14 +120,15 @@ Object.defineProperty(Array.prototype, 'lastOf', {
 
 
 		'_SPACE':
-			[
-				[';',  '_SPACE'],
-				[' ',  '_SPACE'],
-				['\t', '_SPACE'],
-				['\n', '_SPACE']
-			]
-			.concat( tokenChar.map(char => [char, 'attribute']) )
-			.zipKeys( )
+			zipKeys(
+				[
+					[';',  '_SPACE'],
+					[' ',  '_SPACE'],
+					['\t', '_SPACE'],
+					['\n', '_SPACE']
+				]
+				.concat( tokenChar.map(char => [char, 'attribute']) )
+			)
 
 	}
 
@@ -175,8 +173,8 @@ var label = lexeme => {
 
 	lexeme.forEach((state, ith) => {
 
-		if (tokens.length > 0 && tokens.lastOf( ).lastOf( )[1] === state[1]) {
-			tokens.lastOf( ).push(state)
+		if (tokens.length > 0 && lastOf(lastOf(tokens))[1] === state[1]) {
+			lastOf(tokens).push(state)
 		} else {
 			tokens.push([state])
 		}
