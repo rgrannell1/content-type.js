@@ -235,7 +235,15 @@ var parseLexeme = lexeme => {
 
 
 var parse = contentType => {
-	return parseLexeme( label(lex(contentType)) )
+
+	var argClass = Object.prototype.toString.call(contentType)
+
+	if (argClass !== '[object String]') {
+		throw TypeError(`contentType must be a string: actual ${argClass}`)
+	} else {
+		return parseLexeme( label(lex(contentType)) )
+	}
+
 }
 
 var deparse = ({type, subtype, params}) => {

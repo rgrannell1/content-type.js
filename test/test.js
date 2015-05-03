@@ -195,6 +195,19 @@ var knowResults = [known("text/html; charset=utf-8", {
 describe("mimetype", function () {
 
 	describe(".parse", function () {
+
+		it("should never have parametres with spaces", function () {
+
+			knowResults.forEach(function (test) {
+
+				var params = mimetype.parse(test.contentType).params;
+
+				Object.keys(params).forEach(function (param) {
+					param.trim().should.eql(param);
+				});
+			});
+		});
+
 		it("should match known test cases", function () {
 
 			knowResults.forEach(function (test) {
@@ -217,7 +230,24 @@ describe("mimetype", function () {
 
 		knowResults.forEach(function (test) {
 
-			var I = function (contentType) {};
+			var pair = function (contentType) {
+				mimetype.deparse(mimetype.parse(contentType));
+			};
+
+			var iterate = function (num, fn) {
+				return function (val) {
+
+					for (var ith = 0; ith < num; ++ith) {
+						val = fn(val);
+					}
+
+					return val;
+				};
+			}
+
+			//iterate(2, pair)(test.contentType)
+
+			;
 		});
 	});
 });

@@ -5,6 +5,8 @@ var assert   = require('assert')
 
 
 
+
+
 var known = (contentType, {type, subtype, params}, deparsed) => {
 
 	return {
@@ -362,6 +364,21 @@ var knowResults = [
 describe('mimetype', ( ) => {
 
 	describe('.parse', ( ) => {
+
+		it('should never have parametres with spaces', ( ) => {
+
+			knowResults.forEach(test => {
+
+				var params = mimetype.parse(test.contentType).params
+
+				Object.keys(params).forEach(param => {
+					param.trim( ).should.eql(param)
+				})
+
+			})
+
+		})
+
 		it('should match known test cases', ( ) => {
 
 			knowResults.forEach(test => {
@@ -392,9 +409,22 @@ describe('mimetype', ( ) => {
 
 		knowResults.forEach(test => {
 
-			var I = contentType => {
-
+			var pair = contentType => {
+				mimetype.deparse(mimetype.parse(contentType))
 			}
+
+			var iterate = (num, fn) => {
+				return val => {
+
+					for (var ith = 0; ith < num; ++ ith) {
+						val = fn(val)
+					}
+
+					return val
+				}
+			}
+
+			//iterate(2, pair)(test.contentType)
 
 		})
 
