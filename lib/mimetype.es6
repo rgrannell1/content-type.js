@@ -190,7 +190,10 @@ var lex = contentType => {
 		if (typeof grammar[state][char] !== 'undefined') {
 			transitions.push( [char, grammar[state][char]] )
 		} else {
-			throw Error(`"${char}" not allowed in content-type header (${state})`)
+
+			var current = transitions.map(pair => pair[0]).join('')
+			throw Error(`unexpected "${char}" in content-type header: ${current}`)
+
 		}
 
 	}
