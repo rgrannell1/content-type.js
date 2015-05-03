@@ -234,19 +234,32 @@ var parseLexeme = lexeme => {
 
 
 
+
 var parse = contentType => {
+
+	parse.precond(contentType)
+
+	return parseLexeme( label(lex(contentType)) )
+
+}
+
+parse.precond = contentType => {
 
 	var argClass = Object.prototype.toString.call(contentType)
 
 	if (argClass !== '[object String]') {
 		throw TypeError(`contentType must be a string: actual ${argClass}`)
-	} else {
-		return parseLexeme( label(lex(contentType)) )
 	}
 
 }
 
+
+
+
+
 var deparse = ({type, subtype, params}) => {
+
+	deparse.precond(type, subtype, params)
 
 	var paramString =
 		Object.keys(params)
@@ -257,6 +270,40 @@ var deparse = ({type, subtype, params}) => {
 	return `${type}/${subtype}${paramString}`
 }
 
+deparse.precond = ({type, subtype, params}) => {
+
+	var typeClass    = Object.prototype.toString.call(type)
+	var subtypeClass = Object.prototype.toString.call(subtype)
+	var paramsClass  = Object.prototype.toString.call(params)
+
+
+
+
+
+	if (typeClass !== '[object String]') {
+		throw TypeError(`type must be a string: actual ${typeClass}`)
+	}
+
+	if (subtypeClass !== '[object String]') {
+		throw TypeError(`subtype must be a string: actual ${subtypeClass}`)
+	}
+
+	if (paramsClass !== '[object Object]') {
+		throw TypeError(`params must be a string: actual ${paramsClass}`)
+	}
+
+	Object.keys(params).forEach((param, ith) => {
+
+		var paramClass = Object.prototype.toString.call(params[param])
+
+		if (paramClass !== '[object String]') {
+			throw TypeError(`parameter number ${ith} must be a string: actual ${paramClass}`)
+		}
+
+	})
+
+}
+
 
 
 
@@ -265,3 +312,4 @@ module.exports = {
 	parse,
 	deparse
 }
+

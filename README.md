@@ -43,6 +43,12 @@ console.log(contentType)
 
 * Throws an exception if a non-standard character is used in the content-type.
 
+### `.deparse(parsedContentType)`
+
+* Throws a `TypeError` if the input is not an object.
+
+* Throws a `TypeError` if the input does not have type, subtype, and params fields, each of type string.
+
 ## Corner-Cases
 
 `mimetype` does not strictly follow the above RFC, as many of the top-100 
