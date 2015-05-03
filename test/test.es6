@@ -432,7 +432,8 @@ var knownFailures = [
 	'text/plain; charset = UTF-8',
 	'/',
 	'application/x-bytecode.elisp (compiled elisp)',  // -- are these really errors?
-	'application\/x-bytecode.elisp(compiledelisp)'    // -- are these really errors?
+	'application\/x-bytecode.elisp(compiledelisp)'    // -- are these really errors?,
+	'text/xml; subtype=gml/3.1.1'
 ]
 
 
@@ -532,7 +533,7 @@ describe('mimetype', ( ) => {
 
 	})
 
-	it('should be an identity pair when iterated more than twice', ( ) => {
+	it('should be an identity pair when iterated more than twice', (done) => {
 
 		knowResults.forEach(test => {
 
@@ -564,6 +565,8 @@ describe('mimetype', ( ) => {
 					`failed on iteration ${ith}`)
 
 			}
+
+			done( )
 
 		})
 
