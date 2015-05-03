@@ -181,7 +181,7 @@ var lastOf = function (coll) {
 	)
 
 	// -- _SPACE
-	// tran
+	// multiple semicolon are supported.
 
 	let _SPACE = zipKeys(
 		[
@@ -192,7 +192,7 @@ var lastOf = function (coll) {
 		]
 		.concat(
 			tokenChar
-			.filter(char => char !== ';' && char !== ' ' && char !== '\t' && char !== '\n')
+			.filter(char => [';', ' ', '\t', '\n'].indexOf(char) === -1)
 			.map(toState('attribute')) )
 	)
 
@@ -389,6 +389,10 @@ deparse.precond = (type, subtype, params) => {
 	if (paramsClass !== '[object Object]') {
 		throw TypeError(`params must be a string: actual ${paramsClass}, input ${ input }`)
 	}
+
+
+
+
 
 	Object.keys(params).forEach((param, ith) => {
 

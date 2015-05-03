@@ -47,3 +47,4 @@ console.log(contentType)
 `mimetype` does not strictly follow the above RFC, as many of the top-100 
 websites do not either. 
 
+* multiple semicolons are accepted: `text/plain;; char=10` will parse.

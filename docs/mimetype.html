@@ -317,13 +317,13 @@ otherwise, transition to an unquoted parameter value.</p>
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>— _SPACE
-tran</p>
+multiple semicolon are supported.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>
 		<span class="hljs-keyword">var</span> _SPACE = zipKeys([[<span class="hljs-string">";"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">" "</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\t"</span>, <span class="hljs-string">"_SPACE"</span>], [<span class="hljs-string">"\n"</span>, <span class="hljs-string">"_SPACE"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
-			<span class="hljs-keyword">return</span> char !== <span class="hljs-string">";"</span> &amp;&amp; char !== <span class="hljs-string">" "</span> &amp;&amp; char !== <span class="hljs-string">"\t"</span> &amp;&amp; char !== <span class="hljs-string">"\n"</span>;
+			<span class="hljs-keyword">return</span> [<span class="hljs-string">";"</span>, <span class="hljs-string">" "</span>, <span class="hljs-string">"\t"</span>, <span class="hljs-string">"\n"</span>].indexOf(char) === -<span class="hljs-number">1</span>;
 		}).map(toState(<span class="hljs-string">"attribute"</span>))));
 
 		grammar = {

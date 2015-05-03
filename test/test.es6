@@ -406,6 +406,35 @@ var knowResults = [
 
 
 
+var commonMimetypes = [
+	'text/html'
+	'text/html; charset=utf-8'
+	'text/html; charset=UTF-8'
+	'text/html; charset=iso-8859-1'
+	'text/html;charset=UTF-8'
+	'text/html;charset=utf-8'
+	'text/html; charset=utf8'
+	'application/octet-stream'
+	'text/html; charset=EUC-JP'
+	'text/html; charset=ISO-8859-1'
+	'text/html; charset=Shift_JIS'
+	'text/html; charset=ISO-8859-15'
+	'text/html;;charset=utf-8'
+	'text/html; charset=GB2312'
+	'text/html;'
+	'text/html;charset=ISO-8859-1'
+	'text/html; charset=ISO-8859-2'
+	'text/html; charset=GBK'
+	'text/html; charset=windows-1251'
+	'text/html; charset=Big5'
+	'text/html; charset=shift_jis'
+	'text/html; charset=gbk'
+]
+
+
+
+
+
 var knownFailures = [
 	'text; html;',
 	'texthtml',
@@ -451,7 +480,18 @@ describe('mimetype', ( ) => {
 
 		})
 
+		it('should work for common mimetypes', ( ) => {
+			knowResults.forEach(
+				test => mimetype.parse(test.contentType).params)
+		})
+
 	})
+
+
+
+
+
+
 
 	describe('.deparse', ( ) => {
 		it('should match known test cases', ( ) => {

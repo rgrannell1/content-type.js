@@ -30,3 +30,6 @@ console.log(contentType)
 <li>The casing of the content type is preserved in the parsed output.</li>
 </ul>
 <p><code>mimetype</code> does not strictly follow the above RFC, as many of the top-100<br />websites do not either.</p>
+<ul>
+<li>multiple semicolons are accepted: <code>text/plain;; char=10</code> will parse.</li>
+</ul>
