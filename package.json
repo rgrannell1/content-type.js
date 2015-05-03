@@ -1,0 +1,12 @@
+
+{
+	"name": "mimetype-parser",
+	"scripts": {
+		"start": "bash scripts/build-es6.sh && bash scripts/build-docs.sh",
+		"test":     "mocha"
+	},
+	"dependencies": {
+		"mocha":  "*",
+		"should": "*"
+	}
+}
