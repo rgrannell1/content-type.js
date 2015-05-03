@@ -231,7 +231,7 @@ describe("mimetype", function () {
 		knowResults.forEach(function (test) {
 
 			var pair = function (contentType) {
-				mimetype.deparse(mimetype.parse(contentType));
+				return mimetype.deparse(mimetype.parse(contentType));
 			};
 
 			var iterate = function (num, fn) {
@@ -243,11 +243,14 @@ describe("mimetype", function () {
 
 					return val;
 				};
+			};
+
+			var expected = iterate(2, pair)(test.contentType);
+
+			for (var ith = 2; ith < 100; ++ith) {
+
+				assert.deepEqual(expected, iterate(ith, pair)(test.contentType), "failed on iteration " + ith);
 			}
-
-			//iterate(2, pair)(test.contentType)
-
-			;
 		});
 	});
 });

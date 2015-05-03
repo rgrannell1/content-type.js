@@ -410,7 +410,7 @@ describe('mimetype', ( ) => {
 		knowResults.forEach(test => {
 
 			var pair = contentType => {
-				mimetype.deparse(mimetype.parse(contentType))
+				return mimetype.deparse(mimetype.parse(contentType))
 			}
 
 			var iterate = (num, fn) => {
@@ -424,7 +424,16 @@ describe('mimetype', ( ) => {
 				}
 			}
 
-			//iterate(2, pair)(test.contentType)
+			var expected = iterate(2, pair)(test.contentType)
+
+			for (var ith = 2; ith < 100; ++ith) {
+
+				assert.deepEqual(
+					expected,
+					iterate(ith, pair)(test.contentType),
+					`failed on iteration ${ith}`)
+
+			}
 
 		})
 
