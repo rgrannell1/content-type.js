@@ -102,6 +102,8 @@ var lastOf = function (coll) {
 				[["'", '_SPACE']]
 				.concat(
 					tokenChar
+					.concat(tspecials)
+					.concat(' ')
 					.filter(char => char != "'")
 					.map(char => [char, 'single-quoted']) )
 			),
@@ -111,6 +113,8 @@ var lastOf = function (coll) {
 				[['"', '_SPACE']]
 				.concat(
 					tokenChar
+					.concat(tspecials)
+					.concat(' ')
 					.filter(char => char != '"')
 					.map(char => [char, 'double-quoted']) )
 			),
