@@ -33,14 +33,23 @@ var lastOf = function (coll) {
 		'\x0a', '\x0b', '\x0c', '\x0d', '\x0e', '\x0f',
 		'\x10', '\x11', '\x12', '\x13', '\x14', '\x15',
 		'\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b',
-		'\x1c', '\x1d', '\x1e', '\x1f', '\x7f']
+		'\x1c', '\x1d', '\x1e', '\x1f',
+		'\x7f'
+	]
 
 	// -- tspecials must be in quoted string to use in parametre value.
 	let tspecials = ['(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', "/", "[", "]", "?", "="]
 
-	// -- the printable ascii characters.
-	let ascii = [
-		"\x20", "\x21", "\x22", "\x23", "\x24", "\x25",
+	// -- all ascii characters.
+	let ascii     = [
+
+		'\x00', '\x01', '\x02', '\x03', '\x04',
+		'\x05', '\x06', '\x07', '\x08', '\x09',
+		'\x0a', '\x0b', '\x0c', '\x0d', '\x0e', '\x0f',
+		'\x10', '\x11', '\x12', '\x13', '\x14', '\x15',
+		'\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b',
+		'\x1c', '\x1d', '\x1e', '\x1f', "\x20", "\x21",
+		"\x22", "\x23", "\x24", "\x25",
 		"\x26", "\x27", "\x28", "\x29", "\x2a", "\x2b",
 		"\x2c", "\x2d", "\x2e", "\x2f", "\x30", "\x31",
 		"\x32", "\x33", "\x34", "\x35", "\x36", "\x37",
@@ -55,13 +64,14 @@ var lastOf = function (coll) {
 		"\x68", "\x69", "\x6a", "\x6b", "\x6c", "\x6d",
 		"\x6e", "\x6f", "\x70", "\x71", "\x72", "\x73",
 		"\x74", "\x75", "\x76", "\x77", "\x78", "\x79",
-		"\x7a", "\x7b", "\x7c", "\x7d", "\x7e"
+		"\x7a", "\x7b", "\x7c", "\x7d", "\x7e", '\x7f'
 	]
 
+	// -- all non-control ascii characters.
+	let printable = ascii.filter(char => control.indexOf(char) === -1)
+
 	// -- any ascii character except the tspecials, space, and the CTRL characters
-	let tokenChar = ascii.filter(char => {
-		return tspecials.indexOf(char) === -1 && char !== ' ' && control.indexOf(char) === -1
-	})
+	let tokenChar = printable.filter(char => char !== ' ')
 
 
 
@@ -70,7 +80,10 @@ var lastOf = function (coll) {
 
 
 
-
+	// -- real states
+	//
+	// these states represent parts of the mimetype,
+	// such as the type, or attributes.
 
 	let type = zipKeys(
 		[['/', '_SLASH']]
@@ -100,7 +113,7 @@ var lastOf = function (coll) {
 			tokenChar
 			.concat(tspecials)
 			.concat(' ')
-			.filter(char => char != "'")
+			.filter(char => char !== "'")
 			.map(char => [char, 'single-quoted']) )
 	)
 
@@ -110,7 +123,7 @@ var lastOf = function (coll) {
 			tokenChar
 			.concat(tspecials)
 			.concat(' ')
-			.filter(char => char != '"')
+			.filter(char => char !== '"')
 			.map(char => [char, 'double-quoted']) )
 	)
 
@@ -121,6 +134,11 @@ var lastOf = function (coll) {
 
 
 
+
+
+	// -- virtual states
+	//
+	// these states represent delimiters between tokens.
 
 	let _SLASH = zipKeys(
 		tokenChar.map(
@@ -190,7 +208,7 @@ var lex = contentType => {
 		} else {
 
 			var current = transitions.map(pair => pair[0]).join('')
-			throw Error(`unexpected "${char}" in content-type header: ${current}`)
+			throw Error(`unexpected "${char}" in content-type header: ${current}, ${state}`)
 
 		}
 
