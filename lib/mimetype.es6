@@ -89,48 +89,68 @@ var lastOf = function (coll) {
 
 
 	// -- type
-	// -- non whitespace tokens.
+	// non whitespace tokens. exit when the first slash is reached.
 
 	let type = zipKeys(
 		[['/', '_SLASH']]
 		.concat(
-			tokenChar.map(toState('type')) )
+			tokenChar.map(
+				toState('type')) )
 	)
 
 	// -- subtype
-	// -- non whitespace tokens.
+	// non whitespace tokens. exit when the semicolon is reached.
 
 	let subtype = zipKeys(
 		[[';','_SPACE']]
 		.concat(
-			tokenChar.map(toState('subtype')) )
+			tokenChar.map(
+				toState('subtype')) )
 	)
+
+	// -- attribute
+	// non whitespace tokens. exit when the '=' delimiter for that parametre is reached.
 
 	let attribute = zipKeys(
 		[['=', '_EQUAL']]
 		.concat(
-			tokenChar.map(toState('attribute')) )
+			tokenChar.map(
+				toState('attribute')) )
 	)
+
+	// -- single-quoted
+	// any printable ascii character except '.  exit when ' is reached.
 
 	let singleQuoted = zipKeys(
 		[["'", '_SPACE']]
 		.concat(
 			printable
-			.filter(char => char !== "'")
-			.map(toState('single-quoted')) )
+			.filter(
+				char => char !== "'")
+			.map(
+				toState('single-quoted')) )
 	)
+
+	// -- double-quoted
+	// any printable ascii character except ". exit when " is reached
 
 	let doubleQuoted = zipKeys(
 		[['"', '_SPACE']]
 		.concat(
 			printable
-			.filter(char => char !== '"')
-			.map(toState('double-quoted')) )
+			.filter(
+				char => char !== '"')
+			.map(
+				toState('double-quoted')) )
 	)
+
+	// -- unquoted
+	//
 
 	let unquoted = zipKeys(
 		[[';', '_SPACE']]
-		.concat( tokenChar.map(toState('unquoted')) )
+		.concat( tokenChar.map(
+			toState('unquoted')) )
 	)
 
 
@@ -141,17 +161,27 @@ var lastOf = function (coll) {
 	//
 	// these states represent delimiters between tokens.
 
+	// -- _SLASH
+	// transition immediately to the subtype definition.
+
 	let _SLASH = zipKeys(
-		tokenChar.map(
-			char => [char, 'subtype'])
+		tokenChar.map(toState('subtype'))
 	)
+
+	// -- _EQUAL
+	// if the equal is succeeded by a quote, transition to a quoted attribute.
+	// otherwise, transition to an unquoted parameter value.
 
 	let _EQUAL = zipKeys(
 		[
 			['"',  'double-quoted'],
-			["'",  'single-quoted']]
+			["'",  'single-quoted']
+		]
 		.concat( tokenChar.map(char => [char, 'unquoted']) )
 	)
+
+	// -- _SPACE
+	// tran
 
 	let _SPACE = zipKeys(
 		[
@@ -163,7 +193,7 @@ var lastOf = function (coll) {
 		.concat(
 			tokenChar
 			.filter(char => char !== ';' && char !== ' ' && char !== '\t' && char !== '\n')
-			.map(char => [char, 'attribute']) )
+			.map(toState('attribute')) )
 	)
 
 
