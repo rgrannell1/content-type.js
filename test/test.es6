@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 
+var fs       = require('fs')
 var should   = require('should')
 var mimetype = require('../lib/mimetype')
 var assert   = require('assert')
@@ -406,7 +408,7 @@ var knowResults = [
 
 
 
-var commonMimetypes = [
+var commonHTML = [
 	'text/html',
 	'text/html; charset=utf-8',
 	'text/html; charset=UTF-8',
@@ -441,6 +443,14 @@ var knownFailures = [
 	'text/plain; charset = UTF-8'
 ]
 
+
+
+
+var commonMimetypes =
+	JSON.parse(
+		fs.readFileSync(`${__dirname}/utils/common-content-types.json`).toString( ))
+	.map(
+		type => Object.keys(type)[0])
 
 
 
@@ -481,8 +491,23 @@ describe('mimetype', ( ) => {
 		})
 
 		it('should work for common mimetypes', ( ) => {
-			knowResults.forEach(
-				test => mimetype.parse(test.contentType).params)
+
+			commonHTML.forEach(contentType => {
+
+				assert.doesNotThrow(( ) => {
+					mimetype.parse(contentType)
+				}, `failed for ${contentType}`)
+
+			})
+
+			commonMimetypes.forEach(contentType => {
+
+				assert.doesNotThrow(( ) => {
+					mimetype.parse(contentType)
+				}, `failed for ${contentType}`)
+
+			})
+
 		})
 
 	})

@@ -432,7 +432,6 @@ multiple semicolon are supported.</p>
 		<span class="hljs-keyword">var</span> options = labels.slice(<span class="hljs-number">2</span>);
 
 		<span class="hljs-keyword">if</span> (options.length % <span class="hljs-number">2</span> !== <span class="hljs-number">0</span>) {
-			<span class="hljs-built_in">console</span>.log(labels);
 			<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"parsing failed: odd number of tokens."</span>);
 		}
 
@@ -446,7 +445,8 @@ multiple semicolon are supported.</p>
 			params: params
 		};
 	} <span class="hljs-keyword">catch</span> (err) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"failed to parse content-type tokens: "</span> + err.message);
+		<span class="hljs-keyword">var</span> labelString = <span class="hljs-built_in">JSON</span>.stringify(labels);
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"failed to parse content-type tokens: "</span> + err.message + <span class="hljs-string">", "</span> + labelString);
 	}
 };
 

@@ -1,5 +1,7 @@
+#!/usr/bin/env node
 "use strict";
 
+var fs = require("fs");
 var should = require("should");
 var mimetype = require("../lib/mimetype");
 var assert = require("assert");
@@ -217,9 +219,13 @@ var knowResults = [known("text/html; charset=utf-8", {
 	}
 }, "text/plain; foo=\"; charset=\"UTF-8\"\"")];
 
-var commonMimetypes = ["text/html", "text/html; charset=utf-8", "text/html; charset=UTF-8", "text/html; charset=iso-8859-1", "text/html;charset=UTF-8", "text/html;charset=utf-8", "text/html; charset=utf8", "application/octet-stream", "text/html; charset=EUC-JP", "text/html; charset=ISO-8859-1", "text/html; charset=Shift_JIS", "text/html; charset=ISO-8859-15", "text/html;;charset=utf-8", "text/html; charset=GB2312", "text/html;", "text/html;charset=ISO-8859-1", "text/html; charset=ISO-8859-2", "text/html; charset=GBK", "text/html; charset=windows-1251", "text/html; charset=Big5", "text/html; charset=shift_jis", "text/html; charset=gbk"];
+var commonHTML = ["text/html", "text/html; charset=utf-8", "text/html; charset=UTF-8", "text/html; charset=iso-8859-1", "text/html;charset=UTF-8", "text/html;charset=utf-8", "text/html; charset=utf8", "application/octet-stream", "text/html; charset=EUC-JP", "text/html; charset=ISO-8859-1", "text/html; charset=Shift_JIS", "text/html; charset=ISO-8859-15", "text/html;;charset=utf-8", "text/html; charset=GB2312", "text/html;", "text/html;charset=ISO-8859-1", "text/html; charset=ISO-8859-2", "text/html; charset=GBK", "text/html; charset=windows-1251", "text/html; charset=Big5", "text/html; charset=shift_jis", "text/html; charset=gbk"];
 
 var knownFailures = ["text; html;", "texthtml", "text/plain; charset = UTF-8"];
+
+var commonMimetypes = JSON.parse(fs.readFileSync("" + __dirname + "/utils/common-content-types.json").toString()).map(function (type) {
+	return Object.keys(type)[0];
+});
 
 describe("mimetype", function () {
 
@@ -254,8 +260,19 @@ describe("mimetype", function () {
 		});
 
 		it("should work for common mimetypes", function () {
-			knowResults.forEach(function (test) {
-				return mimetype.parse(test.contentType).params;
+
+			commonHTML.forEach(function (contentType) {
+
+				assert.doesNotThrow(function () {
+					mimetype.parse(contentType);
+				}, "failed for " + contentType);
+			});
+
+			commonMimetypes.forEach(function (contentType) {
+
+				assert.doesNotThrow(function () {
+					mimetype.parse(contentType);
+				}, "failed for " + contentType);
 			});
 		});
 	});

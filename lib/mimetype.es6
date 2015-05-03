@@ -307,7 +307,6 @@ var parseLexeme = lexeme => {
 		var options = labels.slice(2)
 
 		if (options.length % 2 !== 0) {
-			console.log(labels)
 			throw Error('parsing failed: odd number of tokens.')
 		}
 
@@ -322,7 +321,10 @@ var parseLexeme = lexeme => {
 		}
 
 	} catch (err) {
-		throw Error(`failed to parse content-type tokens: ${err.message}`)
+
+		var labelString = JSON.stringify(labels)
+		throw Error(`failed to parse content-type tokens: ${err.message}, ${labelString}`)
+
 	}
 
 }
