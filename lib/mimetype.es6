@@ -289,20 +289,26 @@ var label = lexeme => {
 
 
 
-var parseLexeme = lexeme => {
+var parseLexeme = (contentType, lexeme) => {
 
 	var labels = label(lexeme)
+
+	if (labels.length < 2) {
+		throw Error(`invalid mimetype; must contain type and subtype (${contentType})`)
+	}
+
 	var types  = [
 		'application', 'audio', 'example', 'image',
 		'message', 'model', 'multipart', 'text', 'video']
 
-	if (types.indexOf(labels[0][0].toLowerCase( )) === -1) {
-		throw Error(`invalid content type ${labels[0][0].toLowerCase( )}`)
-	}
-
-	var params  = { }
-
 	try {
+
+		if (types.indexOf(labels[0][0].toLowerCase( )) === -1) {
+			throw Error(`invalid content type ${labels[0][0].toLowerCase( )}`)
+		}
+
+		var params  = { }
+
 
 		var options = labels.slice(2)
 
@@ -338,7 +344,7 @@ var parse = contentType => {
 
 	parse.precond(contentType)
 
-	return parseLexeme( label(lex(contentType)) )
+	return parseLexeme( contentType, label(lex(contentType)) )
 
 }
 

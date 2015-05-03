@@ -416,18 +416,23 @@ multiple semicolon are supported.</p>
 	});
 };
 
-<span class="hljs-keyword">var</span> parseLexeme = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(lexeme)</span> </span>{
+<span class="hljs-keyword">var</span> parseLexeme = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(contentType, lexeme)</span> </span>{
 
 	<span class="hljs-keyword">var</span> labels = label(lexeme);
-	<span class="hljs-keyword">var</span> types = [<span class="hljs-string">"application"</span>, <span class="hljs-string">"audio"</span>, <span class="hljs-string">"example"</span>, <span class="hljs-string">"image"</span>, <span class="hljs-string">"message"</span>, <span class="hljs-string">"model"</span>, <span class="hljs-string">"multipart"</span>, <span class="hljs-string">"text"</span>, <span class="hljs-string">"video"</span>];
 
-	<span class="hljs-keyword">if</span> (types.indexOf(labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].toLowerCase()) === -<span class="hljs-number">1</span>) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid content type "</span> + labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].toLowerCase());
+	<span class="hljs-keyword">if</span> (labels.length &lt; <span class="hljs-number">2</span>) {
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid mimetype; must contain type and subtype ("</span> + contentType + <span class="hljs-string">")"</span>);
 	}
 
-	<span class="hljs-keyword">var</span> params = {};
+	<span class="hljs-keyword">var</span> types = [<span class="hljs-string">"application"</span>, <span class="hljs-string">"audio"</span>, <span class="hljs-string">"example"</span>, <span class="hljs-string">"image"</span>, <span class="hljs-string">"message"</span>, <span class="hljs-string">"model"</span>, <span class="hljs-string">"multipart"</span>, <span class="hljs-string">"text"</span>, <span class="hljs-string">"video"</span>];
 
 	<span class="hljs-keyword">try</span> {
+
+		<span class="hljs-keyword">if</span> (types.indexOf(labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].toLowerCase()) === -<span class="hljs-number">1</span>) {
+			<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid content type "</span> + labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].toLowerCase());
+		}
+
+		<span class="hljs-keyword">var</span> params = {};
 
 		<span class="hljs-keyword">var</span> options = labels.slice(<span class="hljs-number">2</span>);
 
@@ -445,6 +450,7 @@ multiple semicolon are supported.</p>
 			params: params
 		};
 	} <span class="hljs-keyword">catch</span> (err) {
+
 		<span class="hljs-keyword">var</span> labelString = <span class="hljs-built_in">JSON</span>.stringify(labels);
 		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"failed to parse content-type tokens: "</span> + err.message + <span class="hljs-string">", "</span> + labelString);
 	}
@@ -454,7 +460,7 @@ multiple semicolon are supported.</p>
 
 	parse.precond(contentType);
 
-	<span class="hljs-keyword">return</span> parseLexeme(label(lex(contentType)));
+	<span class="hljs-keyword">return</span> parseLexeme(contentType, label(lex(contentType)));
 };
 
 parse.precond = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(contentType)</span> </span>{
