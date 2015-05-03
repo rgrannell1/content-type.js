@@ -26,6 +26,8 @@ var lastOf = function (coll) {
 
 {
 
+	let toState = state => char => [char, state]
+
 	// -- the control ascii characters (inc. delete)
 	let control   = [
 		'\x00', '\x01', '\x02', '\x03', '\x04',
@@ -71,7 +73,7 @@ var lastOf = function (coll) {
 	let printable = ascii.filter(char => control.indexOf(char) === -1)
 
 	// -- any ascii character except the tspecials, space, and the CTRL characters
-	let tokenChar = printable.filter(char => char !== ' ')
+	let tokenChar = printable.filter(char => char !== ' ' && tspecials.indexOf(char) === -1)
 
 
 
@@ -85,51 +87,50 @@ var lastOf = function (coll) {
 	// these states represent parts of the mimetype,
 	// such as the type, or attributes.
 
+
+	// -- type
+	// -- non whitespace tokens.
+
 	let type = zipKeys(
 		[['/', '_SLASH']]
 		.concat(
-			tokenChar.map(char => [char, 'type']) )
+			tokenChar.map(toState('type')) )
 	)
+
+	// -- subtype
+	// -- non whitespace tokens.
 
 	let subtype = zipKeys(
 		[[';','_SPACE']]
 		.concat(
-			tokenChar.map(char => [char, 'subtype']) )
+			tokenChar.map(toState('subtype')) )
 	)
 
 	let attribute = zipKeys(
 		[['=', '_EQUAL']]
 		.concat(
-			tokenChar
-			.filter(char => {
-				return control.indexOf(char) === -1
-			})
-			.map(char => [char, 'attribute']) )
+			tokenChar.map(toState('attribute')) )
 	)
 
 	let singleQuoted = zipKeys(
 		[["'", '_SPACE']]
 		.concat(
-			tokenChar
-			.concat(tspecials)
-			.concat(' ')
+			printable
 			.filter(char => char !== "'")
-			.map(char => [char, 'single-quoted']) )
+			.map(toState('single-quoted')) )
 	)
 
 	let doubleQuoted = zipKeys(
 		[['"', '_SPACE']]
 		.concat(
-			tokenChar
-			.concat(tspecials)
-			.concat(' ')
+			printable
 			.filter(char => char !== '"')
-			.map(char => [char, 'double-quoted']) )
+			.map(toState('double-quoted')) )
 	)
 
 	let unquoted = zipKeys(
 		[[';', '_SPACE']]
-		.concat( tokenChar.map(char => [char, 'unquoted']) )
+		.concat( tokenChar.map(toState('unquoted')) )
 	)
 
 
