@@ -254,16 +254,27 @@ var parseLexeme = lexeme => {
 	}
 
 	var params  = { }
-	var options = labels.slice(2)
 
-	for (let ith = 0; ith < options.length; ith += 2) {
-		params[options[ith][0]] = options[ith + 1][0]
-	}
+	try {
 
-	return {
-		type:    labels[0][0],
-		subtype: labels[1][0],
-		params:  params
+		var options = labels.slice(2)
+
+		if (options.length % 2 !== 0) {
+			throw Error('parsing failed: odd number of tokens.')
+		}
+
+		for (let ith = 0; ith < options.length; ith += 2) {
+			params[options[ith][0]] = options[ith + 1][0]
+		}
+
+		return {
+			type:    labels[0][0],
+			subtype: labels[1][0],
+			params:  params
+		}
+
+	} catch (err) {
+		throw Error(`failed to parse content-type tokens: ${err.message}`)
 	}
 
 }

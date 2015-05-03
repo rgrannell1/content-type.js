@@ -379,15 +379,15 @@ var knowResults = [
 		'text/plain; foo=bar; charset="UTF-\8"'),
 
 	known(
-		'text/plain; foo="; charset=\"UTF-8\""',
+		'text/plain; foo="; charset=\'UTF-8\'"',
 		{
 			type:    'text',
 			subtype: 'plain',
 			params:  {
-				foo: '"; charset=\"UTF-8\""'
+				foo: '"; charset=\'UTF-8\'"'
 			}
 		},
-		'text/plain; foo="; charset=\"UTF-8\""'),
+		'text/plain; foo="; charset=\'UTF-8\'"'),
 
 	known(
 		"text/plain; foo='; charset=\"UTF-8\"'",
@@ -446,13 +446,7 @@ describe('mimetype', ( ) => {
 		it('should fail for known failing cases', ( ) => {
 
 			knownFailures.forEach(contentType => {
-
-				assert.throws(( ) => {
-						mimetype.parse(contentType)
-					},
-					Error
-				)
-
+				assert.throws(( ) => mimetype.parse(contentType), Error)
 			})
 
 		})

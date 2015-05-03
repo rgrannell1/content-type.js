@@ -203,13 +203,13 @@ var knowResults = [known("text/html; charset=utf-8", {
 		foo: "bar",
 		charset: "\"UTF-8\""
 	}
-}, "text/plain; foo=bar; charset=\"UTF-8\""), known("text/plain; foo=\"; charset=\"UTF-8\"\"", {
+}, "text/plain; foo=bar; charset=\"UTF-8\""), known("text/plain; foo=\"; charset='UTF-8'\"", {
 	type: "text",
 	subtype: "plain",
 	params: {
-		foo: "\"; charset=\"UTF-8\"\""
+		foo: "\"; charset='UTF-8'\""
 	}
-}, "text/plain; foo=\"; charset=\"UTF-8\"\""), known("text/plain; foo='; charset=\"UTF-8\"'", {
+}, "text/plain; foo=\"; charset='UTF-8'\""), known("text/plain; foo='; charset=\"UTF-8\"'", {
 	type: "text",
 	subtype: "plain",
 	params: {
@@ -245,9 +245,8 @@ describe("mimetype", function () {
 		it("should fail for known failing cases", function () {
 
 			knownFailures.forEach(function (contentType) {
-
 				assert.throws(function () {
-					mimetype.parse(contentType);
+					return mimetype.parse(contentType);
 				}, Error);
 			});
 		});
