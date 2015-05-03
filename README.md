@@ -1,4 +1,5 @@
 
 # mimetype
 
-rfc-2046 compliant parser.
+a (mostly) rfc-2045 compliant parser.
+
