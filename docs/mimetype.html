@@ -64,9 +64,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> control = [<span class="hljs-string">"\u0000"</span>, <span class="hljs-string">"\u0001"</span>, <span class="hljs-string">"\u0002"</span>, <span class="hljs-string">"\u0003"</span>, <span class="hljs-string">"\u0004"</span>, <span class="hljs-string">"\u0005"</span>, <span class="hljs-string">"\u0006"</span>, <span class="hljs-string">"\u0007"</span>, <span class="hljs-string">"\b"</span>, <span class="hljs-string">"\t"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-string">"\u000b"</span>, <span class="hljs-string">"\f"</span>, <span class="hljs-string">"\r"</span>, <span class="hljs-string">"\u000e"</span>, <span class="hljs-string">"\u000f"</span>, <span class="hljs-string">"\u0010"</span>, <span class="hljs-string">"\u0011"</span>, <span class="hljs-string">"\u0012"</span>, <span class="hljs-string">"\u0013"</span>, <span class="hljs-string">"\u0014"</span>, <span class="hljs-string">"\u0015"</span>, <span class="hljs-string">"\u0016"</span>, <span class="hljs-string">"\u0017"</span>, <span class="hljs-string">"\u0018"</span>, <span class="hljs-string">"\u0019"</span>, <span class="hljs-string">"\u001a"</span>, <span class="hljs-string">"\u001b"</span>, <span class="hljs-string">"\u001c"</span>, <span class="hljs-string">"\u001d"</span>, <span class="hljs-string">"\u001e"</span>, <span class="hljs-string">"\u001f"</span>, <span class="hljs-string">""</span>];
-
-		<span class="hljs-keyword">var</span> tspecials = [<span class="hljs-string">"("</span>, <span class="hljs-string">")"</span>, <span class="hljs-string">"&lt;"</span>, <span class="hljs-string">"&gt;"</span>, <span class="hljs-string">"@"</span>, <span class="hljs-string">","</span>, <span class="hljs-string">";"</span>, <span class="hljs-string">":"</span>, <span class="hljs-string">"\\"</span>, <span class="hljs-string">"\""</span>, <span class="hljs-string">"/"</span>, <span class="hljs-string">"["</span>, <span class="hljs-string">"]"</span>, <span class="hljs-string">"?"</span>, <span class="hljs-string">"="</span>];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> control = [<span class="hljs-string">"\u0000"</span>, <span class="hljs-string">"\u0001"</span>, <span class="hljs-string">"\u0002"</span>, <span class="hljs-string">"\u0003"</span>, <span class="hljs-string">"\u0004"</span>, <span class="hljs-string">"\u0005"</span>, <span class="hljs-string">"\u0006"</span>, <span class="hljs-string">"\u0007"</span>, <span class="hljs-string">"\b"</span>, <span class="hljs-string">"\t"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-string">"\u000b"</span>, <span class="hljs-string">"\f"</span>, <span class="hljs-string">"\r"</span>, <span class="hljs-string">"\u000e"</span>, <span class="hljs-string">"\u000f"</span>, <span class="hljs-string">"\u0010"</span>, <span class="hljs-string">"\u0011"</span>, <span class="hljs-string">"\u0012"</span>, <span class="hljs-string">"\u0013"</span>, <span class="hljs-string">"\u0014"</span>, <span class="hljs-string">"\u0015"</span>, <span class="hljs-string">"\u0016"</span>, <span class="hljs-string">"\u0017"</span>, <span class="hljs-string">"\u0018"</span>, <span class="hljs-string">"\u0019"</span>, <span class="hljs-string">"\u001a"</span>, <span class="hljs-string">"\u001b"</span>, <span class="hljs-string">"\u001c"</span>, <span class="hljs-string">"\u001d"</span>, <span class="hljs-string">"\u001e"</span>, <span class="hljs-string">"\u001f"</span>, <span class="hljs-string">""</span>];</pre></div></div>
             
         </li>
         
@@ -77,18 +75,43 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
+              <p>— tspecials must be in quoted string to use in parametre value.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> tspecials = [<span class="hljs-string">"("</span>, <span class="hljs-string">")"</span>, <span class="hljs-string">"&lt;"</span>, <span class="hljs-string">"&gt;"</span>, <span class="hljs-string">"@"</span>, <span class="hljs-string">","</span>, <span class="hljs-string">";"</span>, <span class="hljs-string">":"</span>, <span class="hljs-string">"\\"</span>, <span class="hljs-string">"\""</span>, <span class="hljs-string">"/"</span>, <span class="hljs-string">"["</span>, <span class="hljs-string">"]"</span>, <span class="hljs-string">"?"</span>, <span class="hljs-string">"="</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
               <p>— the printable ascii characters.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> ascii = [<span class="hljs-string">" "</span>, <span class="hljs-string">"!"</span>, <span class="hljs-string">"\""</span>, <span class="hljs-string">"#"</span>, <span class="hljs-string">"$"</span>, <span class="hljs-string">"%"</span>, <span class="hljs-string">"&amp;"</span>, <span class="hljs-string">"'"</span>, <span class="hljs-string">"("</span>, <span class="hljs-string">")"</span>, <span class="hljs-string">"*"</span>, <span class="hljs-string">"+"</span>, <span class="hljs-string">","</span>, <span class="hljs-string">"-"</span>, <span class="hljs-string">"."</span>, <span class="hljs-string">"/"</span>, <span class="hljs-string">"0"</span>, <span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">":"</span>, <span class="hljs-string">";"</span>, <span class="hljs-string">"&lt;"</span>, <span class="hljs-string">"="</span>, <span class="hljs-string">"&gt;"</span>, <span class="hljs-string">"?"</span>, <span class="hljs-string">"@"</span>, <span class="hljs-string">"A"</span>, <span class="hljs-string">"B"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"E"</span>, <span class="hljs-string">"F"</span>, <span class="hljs-string">"G"</span>, <span class="hljs-string">"H"</span>, <span class="hljs-string">"I"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"K"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"M"</span>, <span class="hljs-string">"N"</span>, <span class="hljs-string">"O"</span>, <span class="hljs-string">"P"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"R"</span>, <span class="hljs-string">"S"</span>, <span class="hljs-string">"T"</span>, <span class="hljs-string">"U"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"W"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"Y"</span>, <span class="hljs-string">"Z"</span>, <span class="hljs-string">"["</span>, <span class="hljs-string">"\\"</span>, <span class="hljs-string">"]"</span>, <span class="hljs-string">"^"</span>, <span class="hljs-string">"_"</span>, <span class="hljs-string">"`"</span>, <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"f"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"h"</span>, <span class="hljs-string">"i"</span>, <span class="hljs-string">"j"</span>, <span class="hljs-string">"k"</span>, <span class="hljs-string">"l"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"n"</span>, <span class="hljs-string">"o"</span>, <span class="hljs-string">"p"</span>, <span class="hljs-string">"q"</span>, <span class="hljs-string">"r"</span>, <span class="hljs-string">"s"</span>, <span class="hljs-string">"t"</span>, <span class="hljs-string">"u"</span>, <span class="hljs-string">"v"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-string">"x"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"z"</span>, <span class="hljs-string">"{"</span>, <span class="hljs-string">"|"</span>, <span class="hljs-string">"}"</span>, <span class="hljs-string">"~"</span>].filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
-			<span class="hljs-keyword">return</span> char !== <span class="hljs-string">" "</span> &amp;&amp; tspecials.indexOf(char) === -<span class="hljs-number">1</span>;
-		});
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> ascii = [<span class="hljs-string">" "</span>, <span class="hljs-string">"!"</span>, <span class="hljs-string">"\""</span>, <span class="hljs-string">"#"</span>, <span class="hljs-string">"$"</span>, <span class="hljs-string">"%"</span>, <span class="hljs-string">"&amp;"</span>, <span class="hljs-string">"'"</span>, <span class="hljs-string">"("</span>, <span class="hljs-string">")"</span>, <span class="hljs-string">"*"</span>, <span class="hljs-string">"+"</span>, <span class="hljs-string">","</span>, <span class="hljs-string">"-"</span>, <span class="hljs-string">"."</span>, <span class="hljs-string">"/"</span>, <span class="hljs-string">"0"</span>, <span class="hljs-string">"1"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">":"</span>, <span class="hljs-string">";"</span>, <span class="hljs-string">"&lt;"</span>, <span class="hljs-string">"="</span>, <span class="hljs-string">"&gt;"</span>, <span class="hljs-string">"?"</span>, <span class="hljs-string">"@"</span>, <span class="hljs-string">"A"</span>, <span class="hljs-string">"B"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"E"</span>, <span class="hljs-string">"F"</span>, <span class="hljs-string">"G"</span>, <span class="hljs-string">"H"</span>, <span class="hljs-string">"I"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"K"</span>, <span class="hljs-string">"L"</span>, <span class="hljs-string">"M"</span>, <span class="hljs-string">"N"</span>, <span class="hljs-string">"O"</span>, <span class="hljs-string">"P"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"R"</span>, <span class="hljs-string">"S"</span>, <span class="hljs-string">"T"</span>, <span class="hljs-string">"U"</span>, <span class="hljs-string">"V"</span>, <span class="hljs-string">"W"</span>, <span class="hljs-string">"X"</span>, <span class="hljs-string">"Y"</span>, <span class="hljs-string">"Z"</span>, <span class="hljs-string">"["</span>, <span class="hljs-string">"\\"</span>, <span class="hljs-string">"]"</span>, <span class="hljs-string">"^"</span>, <span class="hljs-string">"_"</span>, <span class="hljs-string">"`"</span>, <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"f"</span>, <span class="hljs-string">"g"</span>, <span class="hljs-string">"h"</span>, <span class="hljs-string">"i"</span>, <span class="hljs-string">"j"</span>, <span class="hljs-string">"k"</span>, <span class="hljs-string">"l"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"n"</span>, <span class="hljs-string">"o"</span>, <span class="hljs-string">"p"</span>, <span class="hljs-string">"q"</span>, <span class="hljs-string">"r"</span>, <span class="hljs-string">"s"</span>, <span class="hljs-string">"t"</span>, <span class="hljs-string">"u"</span>, <span class="hljs-string">"v"</span>, <span class="hljs-string">"w"</span>, <span class="hljs-string">"x"</span>, <span class="hljs-string">"y"</span>, <span class="hljs-string">"z"</span>, <span class="hljs-string">"{"</span>, <span class="hljs-string">"|"</span>, <span class="hljs-string">"}"</span>, <span class="hljs-string">"~"</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>— any ascii character except the tspecials, space, and the CTRL characters</p>
 
-		<span class="hljs-keyword">var</span> tokenChar = ascii.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
-			<span class="hljs-keyword">return</span> tspecials.indexOf(char) === -<span class="hljs-number">1</span>;
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> tokenChar = ascii.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
+			<span class="hljs-keyword">return</span> tspecials.indexOf(char) === -<span class="hljs-number">1</span> &amp;&amp; char !== <span class="hljs-string">" "</span> &amp;&amp; control.indexOf(char) === -<span class="hljs-number">1</span>;
 		});
-		<span class="hljs-keyword">var</span> spaces = [<span class="hljs-string">" "</span>, <span class="hljs-string">"\t"</span>];
 
 		grammar = {
 
@@ -213,8 +236,8 @@
 	}
 
 	<span class="hljs-keyword">return</span> {
-		type: labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].toLowerCase(),
-		subtype: labels[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>].toLowerCase(),
+		type: labels[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>],
+		subtype: labels[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>],
 		params: params
 	};
 };
@@ -249,25 +272,24 @@ parse.precond = <span class="hljs-function"><span class="hljs-keyword">function<
 	<span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + type + <span class="hljs-string">"/"</span> + subtype + <span class="hljs-string">""</span> + paramString;
 };
 
-deparse.precond = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(_ref)</span> </span>{
-	<span class="hljs-keyword">var</span> type = _ref.type;
-	<span class="hljs-keyword">var</span> subtype = _ref.subtype;
-	<span class="hljs-keyword">var</span> params = _ref.params;
+deparse.precond = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(type, subtype, params)</span> </span>{
 
 	<span class="hljs-keyword">var</span> typeClass = <span class="hljs-built_in">Object</span>.prototype.toString.call(type);
 	<span class="hljs-keyword">var</span> subtypeClass = <span class="hljs-built_in">Object</span>.prototype.toString.call(subtype);
 	<span class="hljs-keyword">var</span> paramsClass = <span class="hljs-built_in">Object</span>.prototype.toString.call(params);
 
+	<span class="hljs-keyword">var</span> input = <span class="hljs-built_in">JSON</span>.stringify({ type: type, subtype: subtype, params: params });
+
 	<span class="hljs-keyword">if</span> (typeClass !== <span class="hljs-string">"[object String]"</span>) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"type must be a string: actual "</span> + typeClass);
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"type must be a string: actual "</span> + typeClass + <span class="hljs-string">", input "</span> + input);
 	}
 
 	<span class="hljs-keyword">if</span> (subtypeClass !== <span class="hljs-string">"[object String]"</span>) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"subtype must be a string: actual "</span> + subtypeClass);
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"subtype must be a string: actual "</span> + subtypeClass + <span class="hljs-string">", input "</span> + input);
 	}
 
 	<span class="hljs-keyword">if</span> (paramsClass !== <span class="hljs-string">"[object Object]"</span>) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"params must be a string: actual "</span> + paramsClass);
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"params must be a string: actual "</span> + paramsClass + <span class="hljs-string">", input "</span> + input);
 	}
 
 	<span class="hljs-built_in">Object</span>.keys(params).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(param, ith)</span> </span>{

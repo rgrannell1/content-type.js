@@ -80,7 +80,7 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		charset: "utf-8"
 	}
-}, "text/html;charset=utf-8"), known("text/html; charset=ISO-8859-1", {
+}, "text/html; charset=utf-8"), known("text/html; charset=ISO-8859-1", {
 	type: "text",
 	subtype: "html",
 	params: {
@@ -92,19 +92,19 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		charset: "UTF-8"
 	}
-}, "text/html;charset=UTF-8"), known("text/html; charset=GB2312", {
+}, "text/html; charset=UTF-8"), known("text/html; charset=GB2312", {
 	type: "text",
 	subtype: "html",
 	params: {
 		charset: "GB2312"
 	}
-}, "text/html; charset=GB2312"), known("text/html;charset=ISO-8859-1", {
+}, "text/html; charset=GB2312"), known("text/html; charset=ISO-8859-1", {
 	type: "text",
 	subtype: "html",
 	params: {
 		charset: "ISO-8859-1"
 	}
-}, "text/html;charset=ISO-8859-1"), known("text/html; charset=windows-1251", {
+}, "text/html; charset=ISO-8859-1"), known("text/html; charset=windows-1251", {
 	type: "text",
 	subtype: "html",
 	params: {
@@ -122,7 +122,7 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		charset: "utf-8"
 	}
-}, "text/html;;charset=utf-8"), known("text/html; charset=GBK", {
+}, "text/html; charset=utf-8"), known("text/html; charset=GBK", {
 	type: "text",
 	subtype: "html",
 	params: {
@@ -175,13 +175,13 @@ var knowResults = [known("text/html; charset=utf-8", {
 		charset: "\"utf-7\""
 	}
 }, "text/plain; charset=\"utf-7\""), known("TEXT/plain; charset='iso-8859-15'", {
-	type: "text",
+	type: "TEXT",
 	subtype: "plain",
 	params: {
 		charset: "'iso-8859-15'"
 	}
 }, "TEXT/plain; charset='iso-8859-15'"), known("MESSAGE/rfc2045", {
-	type: "message",
+	type: "MESSAGE",
 	subtype: "rfc2045",
 	params: {}
 }, "MESSAGE/rfc2045"), known("text/plain; name*=n%41me", {
@@ -190,7 +190,9 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		"name*": "n%41me"
 	}
-}, "message/rfc2045")];
+}, "text/plain; name*=n%41me")];
+
+var knownFailures = ["text; html;", "texthtml"];
 
 describe("mimetype", function () {
 
@@ -214,6 +216,16 @@ describe("mimetype", function () {
 				assert.deepEqual(mimetype.parse(test.contentType), test.parsed);
 			});
 		});
+
+		it("should fail for known failing cases", function () {
+
+			knownFailures.forEach(function (contentType) {
+
+				assert.throws(function () {
+					mimetype.parse(contentType);
+				}, Error);
+			});
+		});
 	});
 
 	describe(".deparse", function () {
@@ -231,7 +243,9 @@ describe("mimetype", function () {
 		knowResults.forEach(function (test) {
 
 			var pair = function (contentType) {
-				return mimetype.deparse(mimetype.parse(contentType));
+
+				var parsed = mimetype.parse(contentType);
+				return mimetype.deparse(parsed);
 			};
 
 			var iterate = function (num, fn) {

@@ -60,7 +60,7 @@ var lastOf = function (coll) {
 
 	// -- any ascii character except the tspecials, space, and the CTRL characters
 	let tokenChar = ascii.filter(char => {
-		return tspecials.indexOf(char) === -1 && token !== ' ' && control.indexOf(char) === -1
+		return tspecials.indexOf(char) === -1 && char !== ' ' && control.indexOf(char) === -1
 	})
 
 
@@ -241,8 +241,6 @@ var parseLexeme = lexeme => {
 		'application', 'audio', 'example', 'image',
 		'message', 'model', 'multipart', 'text', 'video']
 
-	// -- add support for x-label
-
 	if (types.indexOf(labels[0][0].toLowerCase( )) === -1) {
 		throw Error(`invalid content type ${labels[0][0].toLowerCase( )}`)
 	}
@@ -255,8 +253,8 @@ var parseLexeme = lexeme => {
 	}
 
 	return {
-		type:    labels[0][0].toLowerCase( ),
-		subtype: labels[1][0].toLowerCase( ),
+		type:    labels[0][0],
+		subtype: labels[1][0],
 		params:  params
 	}
 
@@ -300,28 +298,29 @@ var deparse = ({type, subtype, params}) => {
 		.join('')
 
 	return `${type}/${subtype}${paramString}`
+
 }
 
-deparse.precond = ({type, subtype, params}) => {
+deparse.precond = (type, subtype, params) => {
 
 	var typeClass    = Object.prototype.toString.call(type)
 	var subtypeClass = Object.prototype.toString.call(subtype)
 	var paramsClass  = Object.prototype.toString.call(params)
 
-
+	var input = JSON.stringify({type, subtype, params})
 
 
 
 	if (typeClass !== '[object String]') {
-		throw TypeError(`type must be a string: actual ${typeClass}`)
+		throw TypeError(`type must be a string: actual ${typeClass}, input ${ input }`)
 	}
 
 	if (subtypeClass !== '[object String]') {
-		throw TypeError(`subtype must be a string: actual ${subtypeClass}`)
+		throw TypeError(`subtype must be a string: actual ${subtypeClass}, input ${ input }`)
 	}
 
 	if (paramsClass !== '[object Object]') {
-		throw TypeError(`params must be a string: actual ${paramsClass}`)
+		throw TypeError(`params must be a string: actual ${paramsClass}, input ${ input }`)
 	}
 
 	Object.keys(params).forEach((param, ith) => {

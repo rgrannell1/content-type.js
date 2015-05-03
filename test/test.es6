@@ -144,7 +144,7 @@ var knowResults = [
 			charset: 'utf-8'
 		}
 	},
-	'text/html;charset=utf-8'),
+	'text/html; charset=utf-8'),
 
 	known(
 	"text/html; charset=ISO-8859-1",
@@ -166,7 +166,7 @@ var knowResults = [
 			charset: 'UTF-8'
 		}
 	},
-	'text/html;charset=UTF-8'),
+	'text/html; charset=UTF-8'),
 
 	known(
 	"text/html; charset=GB2312",
@@ -180,7 +180,7 @@ var knowResults = [
 	'text/html; charset=GB2312'),
 
 	known(
-	"text/html;charset=ISO-8859-1",
+	"text/html; charset=ISO-8859-1",
 	{
 		type:    'text',
 		subtype: 'html',
@@ -188,7 +188,7 @@ var knowResults = [
 			charset: 'ISO-8859-1'
 		}
 	},
-	'text/html;charset=ISO-8859-1'),
+	'text/html; charset=ISO-8859-1'),
 
 	known(
 	"text/html; charset=windows-1251",
@@ -221,7 +221,7 @@ var knowResults = [
 			charset: 'utf-8'
 		}
 	},
-	'text/html;;charset=utf-8'),
+	'text/html; charset=utf-8'),
 
 	known(
 	"text/html; charset=GBK",
@@ -325,7 +325,7 @@ var knowResults = [
 	known(
 	"TEXT/plain; charset='iso-8859-15'",
 	{
-		type:    'text',
+		type:    'TEXT',
 		subtype: 'plain',
 		params:  {
 			charset: "'iso-8859-15'"
@@ -336,13 +336,13 @@ var knowResults = [
 	known(
 	"MESSAGE/rfc2045",
 	{
-		type:    'message',
+		type:    'MESSAGE',
 		subtype: 'rfc2045',
 		params:  {
 
 		}
 	},
-	"message/rfc2045"),
+	"MESSAGE/rfc2045"),
 
 	known(
 	"text/plain; name*=n%41me",
@@ -356,6 +356,16 @@ var knowResults = [
 	"text/plain; name*=n%41me")
 
 ]
+
+
+
+
+
+var knownFailures = [
+	'text; html;',
+	'texthtml'
+]
+
 
 
 
@@ -387,6 +397,20 @@ describe('mimetype', ( ) => {
 
 		})
 
+		it('should fail for known failing cases', ( ) => {
+
+			knownFailures.forEach(contentType => {
+
+				assert.throws(( ) => {
+						mimetype.parse(contentType)
+					},
+					Error
+				)
+
+			})
+
+		})
+
 	})
 
 	describe('.deparse', ( ) => {
@@ -410,7 +434,10 @@ describe('mimetype', ( ) => {
 		knowResults.forEach(test => {
 
 			var pair = contentType => {
-				return mimetype.deparse(mimetype.parse(contentType))
+
+				var parsed = mimetype.parse(contentType)
+				return mimetype.deparse(parsed)
+
 			}
 
 			var iterate = (num, fn) => {
