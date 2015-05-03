@@ -10,3 +10,6 @@ a (mostly) rfc-2045 compliant parser.
 * Throws an exception if a non-standard character is used in the content-type.
 
 ## Corner-Cases
+
+`mimetype` does not strictly follow the above RFC, as many of the top-100 
+websites do not either.
