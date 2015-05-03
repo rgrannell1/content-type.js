@@ -221,8 +221,6 @@ describe("mimetype", function () {
 
 			knowResults.forEach(function (test) {
 
-				console.log(test.deparsed);
-
 				assert.deepEqual(mimetype.deparse(mimetype.parse(test.contentType)), test.deparsed);
 			});
 		});

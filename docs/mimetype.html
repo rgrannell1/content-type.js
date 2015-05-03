@@ -58,6 +58,7 @@
 			<span class="hljs-keyword">return</span> tspecials.indexOf(char) === -<span class="hljs-number">1</span>;
 		});
 		<span class="hljs-keyword">var</span> spaces = [<span class="hljs-string">" "</span>, <span class="hljs-string">"\t"</span>];
+		<span class="hljs-keyword">var</span> control = [<span class="hljs-string">"\u0000"</span>, <span class="hljs-string">"\u0001"</span>, <span class="hljs-string">"\u0002"</span>, <span class="hljs-string">"\u0003"</span>, <span class="hljs-string">"\u0004"</span>, <span class="hljs-string">"\u0005"</span>, <span class="hljs-string">"\u0006"</span>, <span class="hljs-string">"\u0007"</span>, <span class="hljs-string">"\b"</span>, <span class="hljs-string">"\t"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-string">"\u000b"</span>, <span class="hljs-string">"\f"</span>, <span class="hljs-string">"\r"</span>, <span class="hljs-string">"\u000e"</span>, <span class="hljs-string">"\u000f"</span>, <span class="hljs-string">"\u0010"</span>, <span class="hljs-string">"\u0011"</span>, <span class="hljs-string">"\u0012"</span>, <span class="hljs-string">"\u0013"</span>, <span class="hljs-string">"\u0014"</span>, <span class="hljs-string">"\u0015"</span>, <span class="hljs-string">"\u0016"</span>, <span class="hljs-string">"\u0017"</span>, <span class="hljs-string">"\u0018"</span>, <span class="hljs-string">"\u0019"</span>, <span class="hljs-string">"\u001a"</span>, <span class="hljs-string">"\u001b"</span>, <span class="hljs-string">"\u001c"</span>, <span class="hljs-string">"\u001d"</span>, <span class="hljs-string">"\u001e"</span>, <span class="hljs-string">"\u001f"</span>, <span class="hljs-string">""</span>];
 
 		grammar = {
 
@@ -70,7 +71,7 @@
 			}))),
 
 			attribute: zipKeys([[<span class="hljs-string">"="</span>, <span class="hljs-string">"_EQUAL"</span>]].concat(tokenChar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
-				<span class="hljs-keyword">return</span> spaces.indexOf(char) === -<span class="hljs-number">1</span>;
+				<span class="hljs-keyword">return</span> control.indexOf(char) === -<span class="hljs-number">1</span>;
 			}).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(char)</span> </span>{
 				<span class="hljs-keyword">return</span> [char, <span class="hljs-string">"attribute"</span>];
 			}))),
