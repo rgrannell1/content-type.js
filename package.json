@@ -1,12 +1,17 @@
 
 {
-	"name": "mimetype-parser",
+	"name":    "mimetype-parser",
+	"version": "0.1.0",
+
 	"scripts": {
 		"start": "bash scripts/build-es6.sh && bash scripts/build-docs.sh",
 		"test":  "mocha --timeout 15000 test/*.js"
 	},
+	"engines": {
+		"node": ">=0.12.2"
+	},
 	"dependencies": {
-		"mocha":  "*",
-		"should": "*"
+		"mocha":  ">=2.2.4",
+		"should": ">=6.0.1"
 	}
 }
