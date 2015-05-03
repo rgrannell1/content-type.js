@@ -533,7 +533,7 @@ describe('mimetype', ( ) => {
 
 	})
 
-	it('should be an identity pair when iterated more than twice', (done) => {
+	it('should be an identity pair when iterated more than twice', ( ) => {
 
 		knowResults.forEach(test => {
 
@@ -565,8 +565,6 @@ describe('mimetype', ( ) => {
 					`failed on iteration ${ith}`)
 
 			}
-
-			done( )
 
 		})
 
