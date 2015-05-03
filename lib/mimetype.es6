@@ -57,14 +57,11 @@ var lastOf = function (coll) {
 		"\x74", "\x75", "\x76", "\x77", "\x78", "\x79",
 		"\x7a", "\x7b", "\x7c", "\x7d", "\x7e"
 	]
-	.filter(char => {
-		return char !== ' ' && tspecials.indexOf(char) === -1
-	})
 
+	// -- any ascii character except the tspecials, space, and the CTRL characters
 	let tokenChar = ascii.filter(char => {
-		return tspecials.indexOf(char) === -1
+		return tspecials.indexOf(char) === -1 && token !== ' ' && control.indexOf(char) === -1
 	})
-	let spaces    = [' ', '	']
 
 
 
