@@ -342,7 +342,7 @@ var knowResults = [
 
 		}
 	},
-	"MESSAGE/rfc2045"),
+	"message/rfc2045"),
 
 	known(
 	"text/plain; name*=n%41me",
@@ -353,7 +353,7 @@ var knowResults = [
 			'name*': 'n%41me'
 		}
 	},
-	"message/rfc2045")
+	"text/plain; name*=n%41me")
 
 ]
 
@@ -416,7 +416,7 @@ describe('mimetype', ( ) => {
 			var iterate = (num, fn) => {
 				return val => {
 
-					for (var ith = 0; ith < num; ++ ith) {
+					for (let ith = 0; ith < num; ++ ith) {
 						val = fn(val)
 					}
 
@@ -426,7 +426,7 @@ describe('mimetype', ( ) => {
 
 			var expected = iterate(2, pair)(test.contentType)
 
-			for (var ith = 2; ith < 100; ++ith) {
+			for (let ith = 2; ith < 100; ++ith) {
 
 				assert.deepEqual(
 					expected,

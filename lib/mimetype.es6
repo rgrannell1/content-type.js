@@ -35,6 +35,7 @@ var lastOf = function (coll) {
 		'\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b',
 		'\x1c', '\x1d', '\x1e', '\x1f', '\x7f']
 
+	// -- tspecials must be in quoted string to use in parametre value.
 	let tspecials = ['(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', "/", "[", "]", "?", "="]
 
 	// -- the printable ascii characters.
@@ -242,6 +243,8 @@ var parseLexeme = lexeme => {
 	var types  = [
 		'application', 'audio', 'example', 'image',
 		'message', 'model', 'multipart', 'text', 'video']
+
+	// -- add support for x-label
 
 	if (types.indexOf(labels[0][0].toLowerCase( )) === -1) {
 		throw Error(`invalid content type ${labels[0][0].toLowerCase( )}`)
