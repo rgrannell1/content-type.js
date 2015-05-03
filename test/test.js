@@ -175,13 +175,13 @@ var knowResults = [known("text/html; charset=utf-8", {
 		charset: "\"utf-7\""
 	}
 }, "text/plain; charset=\"utf-7\""), known("TEXT/plain; charset='iso-8859-15'", {
-	type: "TEXT",
+	type: "text",
 	subtype: "plain",
 	params: {
 		charset: "'iso-8859-15'"
 	}
 }, "TEXT/plain; charset='iso-8859-15'"), known("MESSAGE/rfc2045", {
-	type: "MESSAGE",
+	type: "message",
 	subtype: "rfc2045",
 	params: {}
 }, "MESSAGE/rfc2045"), known("text/plain; name*=n%41me", {
@@ -220,6 +220,8 @@ describe("mimetype", function () {
 		it("should match known test cases", function () {
 
 			knowResults.forEach(function (test) {
+
+				console.log(test.deparsed);
 
 				assert.deepEqual(mimetype.deparse(mimetype.parse(test.contentType)), test.deparsed);
 			});

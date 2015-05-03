@@ -325,7 +325,7 @@ var knowResults = [
 	known(
 	"TEXT/plain; charset='iso-8859-15'",
 	{
-		type:    'TEXT',
+		type:    'text',
 		subtype: 'plain',
 		params:  {
 			charset: "'iso-8859-15'"
@@ -336,7 +336,7 @@ var knowResults = [
 	known(
 	"MESSAGE/rfc2045",
 	{
-		type:    'MESSAGE',
+		type:    'message',
 		subtype: 'rfc2045',
 		params:  {
 

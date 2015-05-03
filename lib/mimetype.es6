@@ -38,6 +38,7 @@ var lastOf = function (coll) {
 	let tokenChar = ascii.filter(char => {
 		return tspecials.indexOf(char) === -1
 	})
+	let spaces    = [' ', '	']
 
 
 
@@ -62,7 +63,12 @@ var lastOf = function (coll) {
 		'attribute':
 			zipKeys(
 				[['=', '_EQUAL']]
-				.concat( tokenChar.map(char => [char, 'attribute']) )
+				.concat(
+					tokenChar
+					.filter(char => {
+						return spaces.indexOf(char) === -1
+					})
+					.map(char => [char, 'attribute']) )
 			),
 
 
@@ -127,7 +133,10 @@ var lastOf = function (coll) {
 					['\t', '_SPACE'],
 					['\n', '_SPACE']
 				]
-				.concat( tokenChar.map(char => [char, 'attribute']) )
+				.concat(
+					tokenChar
+					.filter(char => char !== ';' && char !== ' ' && char !== '\t' && char !== '\n')
+					.map(char => [char, 'attribute']) )
 			)
 
 	}
@@ -151,7 +160,7 @@ var lex = contentType => {
 			state = transitions[transitions.length - 1][1]
 		}
 
-		if (grammar[state][char]) {
+		if (typeof grammar[state][char] !== 'undefined') {
 			transitions.push( [char, grammar[state][char]] )
 		} else {
 			throw Error(`"${char}" not allowed in content-type header (${state})`)

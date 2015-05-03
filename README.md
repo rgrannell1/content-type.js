@@ -42,5 +42,7 @@ console.log(contentType)
 
 ## Corner-Cases
 
+* both the type and subtypes are coerced to lower case, as per the standard.
+
 `mimetype` does not strictly follow the above RFC, as many of the top-100 
 websites do not either. 
