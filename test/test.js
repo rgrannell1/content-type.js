@@ -190,9 +190,22 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		"name*": "n%41me"
 	}
-}, "text/plain; name*=n%41me")];
+}, "text/plain; name*=n%41me"), known("text/plain; charset=\"UTF-8\"", {
+	type: "text",
+	subtype: "plain",
+	params: {
+		charset: "\"UTF-8\""
+	}
+}, "text/plain; charset=\"UTF-8\""), known("text/plain; foo=bar; charset=\"UTF-8\"", {
+	type: "text",
+	subtype: "plain",
+	params: {
+		foo: "bar",
+		charset: "\"UTF-8\""
+	}
+}, "text/plain; foo=bar; charset=\"UTF-8\"")];
 
-var knownFailures = ["text; html;", "texthtml"];
+var knownFailures = ["text; html;", "texthtml", "text/plain; charset = UTF-8"];
 
 describe("mimetype", function () {
 

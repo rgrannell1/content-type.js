@@ -353,7 +353,30 @@ var knowResults = [
 			'name*': 'n%41me'
 		}
 	},
-	"text/plain; name*=n%41me")
+	"text/plain; name*=n%41me"),
+
+	known(
+		'text/plain; charset="UTF-\8"',
+		{
+			type:    'text',
+			subtype: 'plain',
+			params:  {
+				'charset': '"UTF-\8"'
+			}
+		},
+		'text/plain; charset="UTF-\8"'),
+
+	known(
+		'text/plain; foo=bar; charset="UTF-8"',
+		{
+			type:    'text',
+			subtype: 'plain',
+			params:  {
+				foo:     'bar',
+				charset: '"UTF-8"'
+			}
+		},
+		'text/plain; foo=bar; charset="UTF-\8"')
 
 ]
 
@@ -363,7 +386,8 @@ var knowResults = [
 
 var knownFailures = [
 	'text; html;',
-	'texthtml'
+	'texthtml',
+	'text/plain; charset = UTF-8'
 ]
 
 

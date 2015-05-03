@@ -191,6 +191,7 @@ var lex = contentType => {
 
 	}
 
+	// -- drop the temporary transitions.
 	return transitions.filter(trans => trans[1][0] !== '_')
 
 }
