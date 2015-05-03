@@ -3,7 +3,41 @@
 
 a (mostly) rfc-2045 compliant parser.
 
+## Usage
+
+```js
+
+// node-js.
+var mimetype = require('mimetype')
+
+
+
+
+
+
+var contentType = mimetype.parse('text/html; charset=utf-8')
+
+console.log(contentType)
+
+
+
+
+
+
+
+{ type: 'text',
+  subtype: 'html',
+  params: { 'charset': 'utf-8' } }
+
+```
+
+## Why?
+
 ## Exceptions
+
+### `.parse(contentType)`
+
+* Throw a `TypeError` for non-string arguments.
 
 * Throws an `Error` if a non-stardard type is used (after convertion to lowercase).
 

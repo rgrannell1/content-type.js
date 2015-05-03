@@ -20,6 +20,10 @@ var known = function (contentType, _ref, deparsed) {
 	};
 };
 
+var contentType = mimetype.parse("text/html; charset=utf-8");
+
+console.log(contentType);
+
 var knowResults = [known("text/html; charset=utf-8", {
 	type: "text",
 	subtype: "html",

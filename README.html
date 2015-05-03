@@ -1,7 +1,24 @@
 <h1 id="mimetype">mimetype</h1>
 <p>a (mostly) rfc-2045 compliant parser.</p>
+<h2 id="usage">Usage</h2>
+<pre class="js"><code>
+// node-js.
+var mimetype = require(&#39;mimetype&#39;)
+
+
+
+
+
+
+var contentType = mimetype.parse(&#39;text/html; charset=utf-8&#39;)
+
+console.log(contentType)
+</code></pre>
+<h2 id="why">Why?</h2>
 <h2 id="exceptions">Exceptions</h2>
+<h3 id="parsecontenttype"><code>.parse(contentType)</code></h3>
 <ul>
+<li><p>Throw a <code>TypeError</code> for non-string arguments.</p></li>
 <li><p>Throws an <code>Error</code> if a non-stardard type is used (after convertion to lowercase).</p></li>
 <li><p>Throws an exception if a non-standard character is used in the content-type.</p></li>
 </ul>
