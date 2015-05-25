@@ -1,5 +1,5 @@
 
-# mimetype [![Build Status](https://travis-ci.org/rgrannell1/mimetype.js.png)](https://travis-ci.org/rgrannell1/mimetype.js)
+# content-type [![Build Status](https://travis-ci.org/rgrannell1/mimetype.js.png)](https://travis-ci.org/rgrannell1/mimetype.js)
 
 
 a (mostly) rfc-2045 compliant parser.
