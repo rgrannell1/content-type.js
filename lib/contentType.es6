@@ -418,8 +418,7 @@ deparse.precond = (type, subtype, params) => {
 
 
 
-var parse    = parse.bind({ }, strictGrammar)
-var laxParse = parse.bind({ }, looseGrammar)
+var parse    = parse.bind({ }, grammar)
 
 
 
@@ -428,7 +427,6 @@ var laxParse = parse.bind({ }, looseGrammar)
 
 module.exports = {
 	parse,
-	laxParse,
 	deparse
 }
 
