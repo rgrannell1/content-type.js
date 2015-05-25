@@ -1,12 +1,11 @@
-<h1 id="content-type-build-status">content-type <a href="https://travis-ci.org/rgrannell1/mimetype.js"><img src="https://travis-ci.org/rgrannell1/mimetype.js.png" alt="Build Status" /></a></h1>
+<h1 id="content-type-build-status">content-type <a href="https://travis-ci.org/rgrannell1/mimetype.js"><img src="https://travis-ci.org/rgrannell1/content-type.js.png" alt="Build Status" /></a></h1>
 <p>a (mostly) rfc-2045, rfc-7231 compliant parser.</p>
 <h2 id="usage">Usage</h2>
 <pre class="js"><code>
 // node-js.
-var mimetype = require(&#39;mimetype&#39;)
+var contentType = contentType(&#39;mimetype&#39;)
 
-var contentType = mimetype.parse(&#39;text/html; charset=utf-8&#39;)
-console.log(contentType)
+console.log( contentType.parse(&#39;text/html; charset=utf-8&#39;) )
 
 { type: &#39;text&#39;,
   subtype: &#39;html&#39;,
@@ -30,7 +29,7 @@ console.log(contentType)
 <ul>
 <li>The casing of the content type is preserved in the parsed output.</li>
 </ul>
-<p><code>mimetype</code> does not strictly follow the above RFC, as many of the top-100<br />websites do not either.</p>
+<p><code>content-type</code> does not strictly follow the above RFC, as many of the top-100<br />websites do not either.</p>
 <ul>
 <li>multiple semicolons are accepted: <code>text/plain;; char=10</code> will parse.</li>
 </ul>

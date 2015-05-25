@@ -539,12 +539,10 @@ deparse.precond = <span class="hljs-function"><span class="hljs-keyword">functio
 	});
 };
 
-<span class="hljs-keyword">var</span> parse = parse.bind({}, strictGrammar);
-<span class="hljs-keyword">var</span> laxParse = parse.bind({}, looseGrammar);
+<span class="hljs-keyword">var</span> parse = parse.bind({}, grammar);
 
 <span class="hljs-built_in">module</span>.exports = {
 	parse: parse,
-	laxParse: laxParse,
 	deparse: deparse
 };</pre></div></div>
             
