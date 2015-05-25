@@ -198,7 +198,7 @@ var knowResults = [known("text/html; charset=utf-8", {
 	params: {
 		charset: "\"UTF-8\""
 	}
-}, "text/plain; charset=\"UTF-8\""), known("text/plain; foo=bar; charset=\"UTF-8\"", {
+}, "text/plain; charset=\"UTF-8\""), known("text/plain ; foo=bar; charset=\"UTF-8\"", {
 	type: "text",
 	subtype: "plain",
 	params: {
@@ -216,8 +216,8 @@ var knowResults = [known("text/html; charset=utf-8", {
 var commonHTML = ["text/html", "text/html; charset=utf-8", "text/html; charset=UTF-8", "text/html; charset=iso-8859-1", "text/html;charset=UTF-8", "text/html;charset=utf-8", "text/html; charset=utf8", "application/octet-stream", "text/html; charset=EUC-JP", "text/html; charset=ISO-8859-1", "text/html; charset=Shift_JIS", "text/html; charset=ISO-8859-15", "text/html;;charset=utf-8", "text/html; charset=GB2312", "text/html;", "text/html;charset=ISO-8859-1", "text/html; charset=ISO-8859-2", "text/html; charset=GBK", "text/html; charset=windows-1251", "text/html; charset=Big5", "text/html; charset=shift_jis", "text/html; charset=gbk"];
 
 var knownFailures = ["text; html;", "texthtml", "text/plain; charset = UTF-8", "/", "application/x-bytecode.elisp (compiled elisp)", // -- are these really errors?
-"application/x-bytecode.elisp(compiledelisp)" // -- are these really errors?
-];
+"application/x-bytecode.elisp(compiledelisp)", // -- are these really errors?,
+"text/xml; subtype=gml/3.1.1", " ", "null", "undefined", "/", "text / plain", "text/;plain", "text/\"plain\"", "text/p£ain", "text/(plain)", "text/@plain", "text/plain,wrong"];
 
 var commonMimetypes = JSON.parse(fs.readFileSync("" + __dirname + "/utils/common-content-types.json").toString()).map(function (type) {
 	return Object.keys(type)[0];

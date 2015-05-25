@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var fs       = require('fs')
-var should   = require('should')
-var mimetype = require('../lib/mimetype')
-var assert   = require('assert')
+var fs          = require('fs')
+var should      = require('should')
+var contentType = require('../lib/contentType')
+var assert      = require('assert')
 
 
 
@@ -369,7 +369,7 @@ var knowResults = [
 		'text/plain; charset="UTF-\8"'),
 
 	known(
-		'text/plain; foo=bar; charset="UTF-8"',
+		'text/plain ; foo=bar; charset="UTF-8"',
 		{
 			type:    'text',
 			subtype: 'plain',
@@ -432,8 +432,19 @@ var knownFailures = [
 	'text/plain; charset = UTF-8',
 	'/',
 	'application/x-bytecode.elisp (compiled elisp)',  // -- are these really errors?
-	'application\/x-bytecode.elisp(compiledelisp)'    // -- are these really errors?,
-	'text/xml; subtype=gml/3.1.1'
+	'application\/x-bytecode.elisp(compiledelisp)',    // -- are these really errors?,
+	'text/xml; subtype=gml/3.1.1',
+	' ',
+	'null',
+	'undefined',
+	'/',
+	'text / plain',
+	'text/;plain',
+	'text/"plain"',
+	'text/p£ain',
+	'text/(plain)',
+	'text/@plain',
+	'text/plain,wrong'
 ]
 
 
@@ -451,7 +462,7 @@ var commonMimetypes =
 
 
 
-describe('mimetype', ( ) => {
+describe('contentType', ( ) => {
 
 	describe('.parse', ( ) => {
 
@@ -459,7 +470,7 @@ describe('mimetype', ( ) => {
 
 			knowResults.forEach(test => {
 
-				var params = mimetype.parse(test.contentType).params
+				var params = contentType.parse(test.contentType).params
 
 				Object.keys(params).forEach(param => {
 					param.trim( ).should.eql(param)
@@ -472,7 +483,7 @@ describe('mimetype', ( ) => {
 		it('should match known test cases', ( ) => {
 
 			knowResults.forEach(test => {
-				assert.deepEqual(mimetype.parse(test.contentType), test.parsed)
+				assert.deepEqual(contentType.parse(test.contentType), test.parsed)
 			})
 
 		})
@@ -480,17 +491,17 @@ describe('mimetype', ( ) => {
 		it('should fail for known failing cases', ( ) => {
 
 			knownFailures.forEach(contentType => {
-				assert.throws(( ) => mimetype.parse(contentType), Error)
+				assert.throws(( ) => contentType.parse(contentType), Error)
 			})
 
 		})
 
-		it('should work for common mimetypes', ( ) => {
+		it('should work for common contentTypes', ( ) => {
 
 			commonHTML.forEach(contentType => {
 
 				assert.doesNotThrow(
-					( ) => mimetype.parse(contentType),
+					( ) => contentType.parse(contentType),
 					`failed for ${contentType}`)
 
 			})
@@ -502,7 +513,7 @@ describe('mimetype', ( ) => {
 				}
 
 				assert.doesNotThrow(
-					( ) => mimetype.parse(contentType),
+					( ) => contentType.parse(contentType),
 					`failed for ${contentType}`)
 
 			})
@@ -523,8 +534,8 @@ describe('mimetype', ( ) => {
 			knowResults.forEach(test => {
 
 				assert.deepEqual(
-					mimetype.deparse(
-						mimetype.parse(test.contentType)),
+					contentType.deparse(
+						contentType.parse(test.contentType)),
 					test.deparsed)
 
 			})
@@ -539,8 +550,8 @@ describe('mimetype', ( ) => {
 
 			var pair = contentType => {
 
-				var parsed = mimetype.parse(contentType)
-				return mimetype.deparse(parsed)
+				var parsed = contentType.parse(contentType)
+				return contentType.deparse(parsed)
 
 			}
 

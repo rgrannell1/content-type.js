@@ -84,7 +84,7 @@ var lastOf = function (coll) {
 
 	// -- real states
 	//
-	// these states represent parts of the mimetype,
+	// these states represent parts of the contentType,
 	// such as the type, or attributes.
 
 
@@ -294,7 +294,7 @@ var parseLexeme = (contentType, lexeme) => {
 	var labels = label(lexeme)
 
 	if (labels.length < 2) {
-		throw Error(`invalid mimetype; must contain type and subtype (${contentType})`)
+		throw Error(`invalid contentType; must contain type and subtype (${contentType})`)
 	}
 
 	var types  = [
@@ -340,7 +340,7 @@ var parseLexeme = (contentType, lexeme) => {
 
 
 
-var parse = contentType => {
+var parse = (grammar, contentType) => {
 
 	parse.precond(contentType)
 
@@ -418,8 +418,17 @@ deparse.precond = (type, subtype, params) => {
 
 
 
+var parse    = parse.bind({ }, strictGrammar)
+var laxParse = parse.bind({ }, looseGrammar)
+
+
+
+
+
+
 module.exports = {
 	parse,
+	laxParse,
 	deparse
 }
 
