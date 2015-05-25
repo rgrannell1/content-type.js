@@ -146,7 +146,7 @@
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>— real states</p>
-<p>these states represent parts of the mimetype,
+<p>these states represent parts of the contentType,
 such as the type, or attributes.</p>
 
             </div>
@@ -421,7 +421,7 @@ multiple semicolon are supported.</p>
 	<span class="hljs-keyword">var</span> labels = label(lexeme);
 
 	<span class="hljs-keyword">if</span> (labels.length &lt; <span class="hljs-number">2</span>) {
-		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid mimetype; must contain type and subtype ("</span> + contentType + <span class="hljs-string">")"</span>);
+		<span class="hljs-keyword">throw</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"invalid contentType; must contain type and subtype ("</span> + contentType + <span class="hljs-string">")"</span>);
 	}
 
 	<span class="hljs-keyword">var</span> types = [<span class="hljs-string">"application"</span>, <span class="hljs-string">"audio"</span>, <span class="hljs-string">"example"</span>, <span class="hljs-string">"image"</span>, <span class="hljs-string">"message"</span>, <span class="hljs-string">"model"</span>, <span class="hljs-string">"multipart"</span>, <span class="hljs-string">"text"</span>, <span class="hljs-string">"video"</span>];
@@ -456,7 +456,7 @@ multiple semicolon are supported.</p>
 	}
 };
 
-<span class="hljs-keyword">var</span> parse = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(contentType)</span> </span>{
+<span class="hljs-keyword">var</span> parse = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(grammar, contentType)</span> </span>{
 
 	parse.precond(contentType);
 
@@ -516,8 +516,12 @@ deparse.precond = <span class="hljs-function"><span class="hljs-keyword">functio
 	});
 };
 
+<span class="hljs-keyword">var</span> parse = parse.bind({}, strictGrammar);
+<span class="hljs-keyword">var</span> laxParse = parse.bind({}, looseGrammar);
+
 <span class="hljs-built_in">module</span>.exports = {
 	parse: parse,
+	laxParse: laxParse,
 	deparse: deparse
 };</pre></div></div>
             

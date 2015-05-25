@@ -3,7 +3,7 @@
 
 var fs = require("fs");
 var should = require("should");
-var mimetype = require("../lib/mimetype");
+var contentType = require("../lib/contentType");
 var assert = require("assert");
 
 var known = function (contentType, _ref, deparsed) {
@@ -225,7 +225,7 @@ var commonMimetypes = JSON.parse(fs.readFileSync("" + __dirname + "/utils/common
 	return Object.prototype.toString.call(type) === "[Object String]";
 });
 
-describe("mimetype", function () {
+describe("contentType", function () {
 
 	describe(".parse", function () {
 
@@ -233,7 +233,7 @@ describe("mimetype", function () {
 
 			knowResults.forEach(function (test) {
 
-				var params = mimetype.parse(test.contentType).params;
+				var params = contentType.parse(test.contentType).params;
 
 				Object.keys(params).forEach(function (param) {
 					param.trim().should.eql(param);
@@ -244,7 +244,7 @@ describe("mimetype", function () {
 		it("should match known test cases", function () {
 
 			knowResults.forEach(function (test) {
-				assert.deepEqual(mimetype.parse(test.contentType), test.parsed);
+				assert.deepEqual(contentType.parse(test.contentType), test.parsed);
 			});
 		});
 
@@ -252,17 +252,17 @@ describe("mimetype", function () {
 
 			knownFailures.forEach(function (contentType) {
 				assert.throws(function () {
-					return mimetype.parse(contentType);
+					return contentType.parse(contentType);
 				}, Error);
 			});
 		});
 
-		it("should work for common mimetypes", function () {
+		it("should work for common contentTypes", function () {
 
 			commonHTML.forEach(function (contentType) {
 
 				assert.doesNotThrow(function () {
-					return mimetype.parse(contentType);
+					return contentType.parse(contentType);
 				}, "failed for " + contentType);
 			});
 
@@ -273,7 +273,7 @@ describe("mimetype", function () {
 				}
 
 				assert.doesNotThrow(function () {
-					return mimetype.parse(contentType);
+					return contentType.parse(contentType);
 				}, "failed for " + contentType);
 			});
 		});
@@ -284,7 +284,7 @@ describe("mimetype", function () {
 
 			knowResults.forEach(function (test) {
 
-				assert.deepEqual(mimetype.deparse(mimetype.parse(test.contentType)), test.deparsed);
+				assert.deepEqual(contentType.deparse(contentType.parse(test.contentType)), test.deparsed);
 			});
 		});
 	});
@@ -295,8 +295,8 @@ describe("mimetype", function () {
 
 			var pair = function (contentType) {
 
-				var parsed = mimetype.parse(contentType);
-				return mimetype.deparse(parsed);
+				var parsed = contentType.parse(contentType);
+				return contentType.deparse(parsed);
 			};
 
 			var iterate = function (num, fn) {
