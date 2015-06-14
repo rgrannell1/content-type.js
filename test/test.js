@@ -3,7 +3,7 @@
 
 var fs = require("fs");
 var should = require("should");
-var contentType = require("../lib/contentType");
+var ctype = require("../lib/contentType");
 var assert = require("assert");
 
 var known = function (contentType, _ref, deparsed) {
@@ -225,7 +225,7 @@ var commonMimetypes = JSON.parse(fs.readFileSync("" + __dirname + "/utils/common
 	return Object.prototype.toString.call(type) === "[Object String]";
 });
 
-describe("contentType", function () {
+describe("ctype", function () {
 
 	describe(".parse", function () {
 
@@ -233,7 +233,7 @@ describe("contentType", function () {
 
 			knowResults.forEach(function (test) {
 
-				var params = contentType.parse(test.contentType).params;
+				var params = ctype.parse(test.ctype).params;
 
 				Object.keys(params).forEach(function (param) {
 					param.trim().should.eql(param);
@@ -244,7 +244,7 @@ describe("contentType", function () {
 		it("should match known test cases", function () {
 
 			knowResults.forEach(function (test) {
-				assert.deepEqual(contentType.parse(test.contentType), test.parsed);
+				assert.deepEqual(ctype.parse(test.ctype), test.parsed);
 			});
 		});
 
@@ -252,7 +252,7 @@ describe("contentType", function () {
 
 			knownFailures.forEach(function (contentType) {
 				assert.throws(function () {
-					return contentType.parse(contentType);
+					return ctype.parse(contentType);
 				}, Error);
 			});
 		});
@@ -262,7 +262,7 @@ describe("contentType", function () {
 			commonHTML.forEach(function (contentType) {
 
 				assert.doesNotThrow(function () {
-					return contentType.parse(contentType);
+					return ctype.parse(contentType);
 				}, "failed for " + contentType);
 			});
 
@@ -273,7 +273,7 @@ describe("contentType", function () {
 				}
 
 				assert.doesNotThrow(function () {
-					return contentType.parse(contentType);
+					return ctype.parse(contentType);
 				}, "failed for " + contentType);
 			});
 		});
@@ -284,7 +284,7 @@ describe("contentType", function () {
 
 			knowResults.forEach(function (test) {
 
-				assert.deepEqual(contentType.deparse(contentType.parse(test.contentType)), test.deparsed);
+				assert.deepEqual(ctype.deparse(ctype.parse(test.contentType)), test.deparsed);
 			});
 		});
 	});
@@ -295,8 +295,8 @@ describe("contentType", function () {
 
 			var pair = function (contentType) {
 
-				var parsed = contentType.parse(contentType);
-				return contentType.deparse(parsed);
+				var parsed = ctype.parse(contentType);
+				return ctype.deparse(parsed);
 			};
 
 			var iterate = function (num, fn) {

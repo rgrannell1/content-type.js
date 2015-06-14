@@ -340,7 +340,7 @@ var parseLexeme = (contentType, lexeme) => {
 
 
 
-var parse = (grammar, contentType) => {
+var parse = (contentType) => {
 
 	parse.precond(contentType)
 
@@ -413,13 +413,6 @@ deparse.precond = (type, subtype, params) => {
 	})
 
 }
-
-
-
-
-
-var parse    = parse.bind({ }, grammar)
-
 
 
 

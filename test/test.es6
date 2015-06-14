@@ -2,9 +2,8 @@
 
 var fs          = require('fs')
 var should      = require('should')
-var contentType = require('../lib/contentType')
+var ctype       = require('../lib/contentType')
 var assert      = require('assert')
-
 
 
 
@@ -462,7 +461,7 @@ var commonMimetypes =
 
 
 
-describe('contentType', ( ) => {
+describe('ctype', ( ) => {
 
 	describe('.parse', ( ) => {
 
@@ -470,7 +469,7 @@ describe('contentType', ( ) => {
 
 			knowResults.forEach(test => {
 
-				var params = contentType.parse(test.contentType).params
+				var params = ctype.parse(test.ctype).params
 
 				Object.keys(params).forEach(param => {
 					param.trim( ).should.eql(param)
@@ -483,7 +482,7 @@ describe('contentType', ( ) => {
 		it('should match known test cases', ( ) => {
 
 			knowResults.forEach(test => {
-				assert.deepEqual(contentType.parse(test.contentType), test.parsed)
+				assert.deepEqual(ctype.parse(test.ctype), test.parsed)
 			})
 
 		})
@@ -491,7 +490,7 @@ describe('contentType', ( ) => {
 		it('should fail for known failing cases', ( ) => {
 
 			knownFailures.forEach(contentType => {
-				assert.throws(( ) => contentType.parse(contentType), Error)
+				assert.throws(( ) => ctype.parse(contentType), Error)
 			})
 
 		})
@@ -501,7 +500,7 @@ describe('contentType', ( ) => {
 			commonHTML.forEach(contentType => {
 
 				assert.doesNotThrow(
-					( ) => contentType.parse(contentType),
+					( ) => ctype.parse(contentType),
 					`failed for ${contentType}`)
 
 			})
@@ -513,7 +512,7 @@ describe('contentType', ( ) => {
 				}
 
 				assert.doesNotThrow(
-					( ) => contentType.parse(contentType),
+					( ) => ctype.parse(contentType),
 					`failed for ${contentType}`)
 
 			})
@@ -534,8 +533,8 @@ describe('contentType', ( ) => {
 			knowResults.forEach(test => {
 
 				assert.deepEqual(
-					contentType.deparse(
-						contentType.parse(test.contentType)),
+					ctype.deparse(
+						ctype.parse(test.contentType)),
 					test.deparsed)
 
 			})
@@ -550,8 +549,8 @@ describe('contentType', ( ) => {
 
 			var pair = contentType => {
 
-				var parsed = contentType.parse(contentType)
-				return contentType.deparse(parsed)
+				var parsed = ctype.parse(contentType)
+				return ctype.deparse(parsed)
 
 			}
 
