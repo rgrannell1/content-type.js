@@ -233,7 +233,7 @@ describe("ctype", function () {
 
 			knowResults.forEach(function (test) {
 
-				var params = ctype.parse(test.ctype).params;
+				var params = ctype.parse(test.contentType).params;
 
 				Object.keys(params).forEach(function (param) {
 					param.trim().should.eql(param);
@@ -244,7 +244,7 @@ describe("ctype", function () {
 		it("should match known test cases", function () {
 
 			knowResults.forEach(function (test) {
-				assert.deepEqual(ctype.parse(test.ctype), test.parsed);
+				assert.deepEqual(ctype.parse(test.contentType), test.parsed);
 			});
 		});
 

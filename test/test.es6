@@ -469,7 +469,7 @@ describe('ctype', ( ) => {
 
 			knowResults.forEach(test => {
 
-				var params = ctype.parse(test.ctype).params
+				var params = ctype.parse(test.contentType).params
 
 				Object.keys(params).forEach(param => {
 					param.trim( ).should.eql(param)
@@ -482,7 +482,7 @@ describe('ctype', ( ) => {
 		it('should match known test cases', ( ) => {
 
 			knowResults.forEach(test => {
-				assert.deepEqual(ctype.parse(test.ctype), test.parsed)
+				assert.deepEqual(ctype.parse(test.contentType), test.parsed)
 			})
 
 		})

@@ -239,7 +239,7 @@ var lex = contentType => {
 		} else {
 
 			var current = transitions.map(pair => pair[0]).join('')
-			throw Error(`unexpected "${char}" in content-type header: ${current}, ${state}`)
+			throw Error(`${contentType}: unexpected "${char}" in content-type header near '${current}' (state = '${state}')`)
 
 		}
 
